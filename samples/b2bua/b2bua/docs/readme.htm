@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>B2BUA Sample</title>
+</head>
+<body style="font-family: Tahoma; font-size:10pt">
+<table width="100%" border="0" cellspacing="10">
+  <tr>
+    <td colspan="3" align="center"><H2> Back-to-Back User Agent (B2BUA) Sample </H2></td>
+  </tr>
+  <tr>
+    <td colspan="3"><hr>
+    </td>
+  </tr>
+</table>
+<!----------------- Beginning of the Content ---------------------->
+<h2>Overview</h2>
+<blockquote>
+  <p>This sample application demonstrates how to write a back-to-back user agent (B2BUA) using SIP servlets. It also demonstrates how to easily handle the SIP authentication. </p>
+  <p>The <a href="http://www.ietf.org/rfc/rfc3261.txt">RFC 3261</a> defines a B2BUA as a logical entity that receives an invitation, and acts as a UAS to process it. In order to determine how the request should be answered, it acts as a UAC and initiates a call outwards. Unlike a proxy server, it maintains complete call state and must participate in all requests for a call.  Since it is purely a concatenation of other logical functions, no explicit definitions are needed for its behavior.</p>
+	<p align="left"><img src="images/b2bua1.jpg"/></p>
+	<p>DIGEST authentication, defined in <a href="http://www.ietf.org/rfc/rfc2617.txt">RFC 2617</a>, is widely used between SIP entities. As a JSR-289 compliant SIP servlet container, SIPMethod Application Server supports DIGEST authentication.</blockquote>
+<br>
+<h2>Understanding the Sample </h2>
+<blockquote>
+  <p>B2BUA is a simple B2BUA servlet, which simply forwards all the calls to a statically configured user agent (Callee). In reality, it probably will look up the location service or other data sources to dynamically locate the calllee.</p>
+  <p>For each initial request from the caller, the B2BUA servlet creates a new call leg to relay the request to the callee. The B2BUA servlet associates the two call legs by maintaining a reference to the other call leg's session in each session's &quot;PEER&quot; attribute respectively. For each request relayed from B2BUA to the callee, it also maintains a reference to the original request in &quot;PEER_REQ&quot; attribute from the caller so it can relay the response back.</p>
+  <p>In INVITE transaction, the ACK message requires the reference to the previous response in order to be relayed. This reference is maintained in &quot;RESP_INV&quot; session attribute. </p>
+  <p>Special care has been taken for REGISTER request as well. The B2BUA removes the Contact headers from the original request from the callee so the relayed request contains the Contact header filled by the SIPMethod Application Server. </p>
+  <p>For more details, please refer to the comments in the  <a href="../b2bua/WEB-INF/classes/com/micromethod/sipmethod/sample/b2bua/B2BUA.java">B2BUA.java</a>.</p>
+  <p><a href="../b2bua/WEB-INF/classes/com/micromethod/sipmethod/sample/b2bua/B2BUAByB2buaHelper.java">B2BUAByB2buaHelper.java</a> is another implementation ,which provides the same functionality as <a href="../b2bua/WEB-INF/classes/com/micromethod/sipmethod/sample/b2bua/B2BUA.java">B2BUA.java</a>. However, it leverages B2buaHelper of JSR289 API. Thus its code is much simpler. </p>
+  <p>For more details, please refer to the comments in the  <a href="../b2bua/WEB-INF/classes/com/micromethod/sipmethod/sample/b2bua/B2BUAByB2buaHelper.java">B2BUAByB2buaHelper.java</a>.</p>  
+  <p>This sample also demonstrates how to send a authorization header in SIP servlet using SipServletRequest.addAuthHeader(SipServletResponse challengeResponse, String username, String password). It creates &quot;Authorization&quot; header based on a &quot;WWW-Authorization&quot; header in either 401 or 407 response. 
+</blockquote>
+<br>
+<h2>Running the Sample </h2>
+<blockquote>
+  <p>The top level directories and files in this sample are:</p>
+  <table width="100%" border="0" align="center">
+    <tr> 
+    	<td width="10%"></td>
+      <td><font size="2">docs/</font></td>
+      <td><font size="2">the documentation about this sample </font></td>
+    </tr>
+    <tr> 
+	    <td></td>
+      <td><font size="2">b2bua.sar</font></td>
+      <td align="left"><font size="2">the application archive file (SAR) </font></td>
+    </tr>
+    <tr> 
+	  <td></td>
+      <td><font size="2">b2bua/</font></td>
+      <td><font size="2">the exploded application directory </font></td>
+    </tr>
+  </table>
+	<p>Please follow the following steps to deploy, configure and run this sample:</p>
+	<ol>
+	<li>Copy <em>b2bua</em> directory (or <em>b2bua.sar</em>) into <em><a href="../../../apps">apps</a></em> directory.</li>
+	<br>
+	<li>Configure the initialization parameters for B2BUA server in <em><a href="../../../apps/b2bua/WEB-INF/sip.xml">apps/b2bua/WEB-INF/sip.xml</a></em>. The initialization parameters should match Callee's IP, port and transport.</li>
+	<br>
+	<li>Make the Caller User Agent to call Callee User Agent at B2BUA. You should configure the domain of the callee account with b2bua.sample.prism.voxeo.com.</li>
+	<br>
+	</ol>
+</blockquote><br>
+<!--------------End of the Content ----------------------->
+<table width="100%">
+  <tr>
+    <td colspan="3"><hr>
+    </td>
+  </tr>
+</table>
+</body>

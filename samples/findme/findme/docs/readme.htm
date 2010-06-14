@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Find-Me Sample</title>
+</head>
+<body style="font-family: Tahoma; font-size:10pt">
+<table width="100%" border="0" cellspacing="10">
+  <tr>
+    <td colspan="3" align="center"><H2>Find-Me  Sample </H2></td>
+  </tr>
+  <tr>
+    <td colspan="3"><hr>
+    </td>
+  </tr>
+</table>
+<!----------------- Beginning of the Content ---------------------->
+<h2>Overview</h2>
+<blockquote>
+  <p>This sample application demonstrates how to write a Find-Me  application using built-in SIP proxy function. </p>
+  <p>The <a href="http://www.ietf.org/rfc/rfc3261.txt">RFC 3261</a> defines a proxy as a logical 
+    entity that route SIP requests to user agent servers and SIP responses to user agent 
+    clients. A request may traverse several proxies on its way to a UAS. Each will make routing 
+    decisions, modifying the request before forwarding it to the next element. Responses will route 
+    through the same set of proxies traversed by the request in the reverse order.</p>
+	<p align="left"><img src="images/proxy.jpg"/></p>
+	<p align="left">Find-Me application allows the caller to track down the callee with multiple numbers. Find-Me application can try each number either sequentially or parallel until one of them is reached or all of them are failed. Trying each number in parallel is sometimes called Single Line Extension application. </p>
+</blockquote><br>
+<h2>Understanding the Sample </h2>
+<blockquote>
+  <p><a href="../findme/WEB-INF/classes/com/micromethod/sipmethod/sample/findme/FindMeServlet.java">FindMeServlet</a>  simply forwards INVITE and subsequent message to 
+     a set of callee's numbers configured via sip.xml. In reality, it probably will look up the location 
+     service or other data sources to dynamically locate the callee's numbers. A &quot;findme&quot; parameter toggles between sequential search and parallel search of the multiple numbers. </p>
+  <p>The follow diagram (from <em>tech-invite.com</em>) illustrates  the call flow of Find-Me in sequential search.</p>
+  <p align="left"><img src="images/findme.gif"/></p> <br/>
+  <p>The follow diagram (from <em>tech-invite.com</em>) illustrates the call flow of Follow-Me in parallel search, a.k.a. Single Line Extension.</p>
+  <p align="left"><img src="images/followme.gif"/></p><br/>
+  <p>For each initial INVITE request from the caller, the servlet creates a 
+     <a href="http://micromethod.com/api/sipservlet-1.0/javax/servlet/sip/Proxy.html">Proxy</a> to relay 
+     the request to the callee. The servlet set a number of parameters control how proxying is 
+     carried out.</p>
+  <p>For more details, please refer to the comments in the <a href="../findme/WEB-INF/classes/com/micromethod/sipmethod/sample/findme/FindMeServlet.java">FindMeServlet.java</a>.</p>
+</blockquote>
+<br>
+<h2>Running the Sample </h2>
+<blockquote>
+  <p>The top level directories and files in this sample are:</p>
+  <table width="100%" border="0" align="center">
+    <tr> 
+    	<td width="10%"></td>
+      <td><font size="2">docs/</font></td>
+      <td><font size="2">the documentation about this sample </font></td>
+    </tr>
+    <tr> 
+	    <td></td>
+      <td><font size="2">findme.sar</font></td>
+      <td align="left"><font size="2">the application archive file (SAR) </font></td>
+    </tr>
+    <tr> 
+	  <td></td>
+      <td><font size="2">findme/</font></td>
+      <td><font size="2">the exploded application directory </font></td>
+    </tr>
+    <tr> 
+  </table>
+	<p>Please follow the following steps to deploy, configure and run this sample:</p>
+	<ol>
+	<li>Copy <em>findme</em> directory (or <em>findme.sar</em>) into <em><a href="../../../apps">apps</a></em> directory.</li>
+	<br>
+	<li>Configure a set of SIP URI as multiple callee's number in the &quot;contacts&quot; parameters for FindMeServlet in <em><a href="../../../apps/findme/WEB-INF/sip.xml">apps/findme/WEB-INF/sip.xml</a></em>. Each URI should be separated by comma.</li><br>
+	<li>Configure the &quot;findme&quot; parameter for FindMeServlet in <em><a href="../../../apps/findme/WEB-INF/sip.xml">apps/findme/WEB-INF/sip.xml</a></em>. &quot;true&quot; means searching sequentially.   </li>
+	<br>
+	<li>Make the Caller User Agent to call Callee User Agent at the server. You should configure the domain of the callee account with findme.sample.prism.voxeo.com.</li>
+	<br>
+	</ol>
+</blockquote><br>
+<!--------------End of the Content ----------------------->
+<table width="100%">
+  <tr>
+    <td colspan="3"><hr>
+    </td>
+  </tr>
+</table>
+</body>

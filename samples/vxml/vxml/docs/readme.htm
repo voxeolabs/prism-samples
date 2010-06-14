@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>IVR Samples</title>
+</head>
+<body style="font-family: Tahoma; font-size:10pt">
+<table width="100%" border="0" cellspacing="10">
+  <tr>
+    <td colspan="3" align="center"><H2>IVR Sample</H2></td>
+  </tr>
+  <tr>
+    <td colspan="3"><hr>
+    </td>
+  </tr>
+</table>
+<!----------------- Beginning of the Content ---------------------->
+<h2>Overview</h2>
+<blockquote>
+  <p>This sample application demonstrates how to write a SIP servlet to work with media server. </p>
+	<p align="left"><img src="images/vxml.jpg"/></p>
+</blockquote><br>
+<h2>Understanding the Sample </h2>
+<blockquote>
+  <p>The <a href="http://tools.ietf.org/html/draft-rosenberg-sip-vxml-00">A SIP Interface to VoiceXML Dialog Servers</a> 
+     describes how to establish a VoiceXML Session between SIP entity and VoiceXML Media Server. The SIP Request-URI is 
+     used to identify the VoiceXML media service</p> 
+  <p>For each initial INVITE request from the caller, the servlet creates a new call leg to relay the request to the 
+     Media Server and specify the initial VoiceXML document with the user name of SIP Request-URI.</p>
+  <p>For example, the Request-URI of original INVITE is <blockquote><em>sip:example@sip.example.com</em></blockquote></p>
+  <p>And the Request-URI of new INVITE that send to media server is 
+    <blockquote><em>sip:dialog.vxml.http%3a//web.example.com/example.xml@mediaserver.example.com</em></blockquote>
+  </p>
+  <p>On receipt of the INVITE, the VoiceXML Media Server commences the fetch of the initial VoiceXML document according to 
+     the user name of SIP Request-URI. 
+  </p>
+  <p>The VoiceXML Media Server location can be configured via sip.xml, as shown in the following.</p>
+  <p>
+  <pre><code>
+     &lt;init-param&gt;
+      &lt;param-name&gt;mediaserver-host&lt;/param-name&gt;
+      &lt;param-value&gt;127.0.0.1&lt;/param-value&gt;
+      &lt;description&gt;Host of Media Server&lt;/description&gt;
+    &lt;/init-param&gt;
+
+    &lt;init-param&gt;
+      &lt;param-name&gt;mediaserver-port&lt;/param-name&gt;
+      &lt;param-value&gt;5066&lt;/param-value&gt;
+      &lt;description&gt;Port of Media Server&lt;/description&gt;
+    &lt;/init-param&gt;
+
+    &lt;init-param&gt;
+      &lt;param-name&gt;mediaserver-transport&lt;/param-name&gt;
+      &lt;param-value&gt;udp&lt;/param-value&gt;
+      &lt;description&gt;Transport type of Media Server&lt;/description&gt;
+    &lt;/init-param&gt;
+
+    &lt;init-param&gt;
+      &lt;param-name&gt;vxml&lt;/param-name&gt;
+      &lt;param-value&gt;http://127.0.0.1:8080/vxml/&lt;/param-value&gt;
+      &lt;description&gt;URL that vocie XML is hosted&lt;/description&gt;
+    &lt;/init-param&gt;
+
+    &lt;init-param&gt;
+      &lt;param-name&gt;ext&lt;/param-name&gt;
+      &lt;param-value&gt;.xml&lt;/param-value&gt;
+      &lt;description&gt;The extension of voice xml&lt;/description&gt;
+    &lt;/init-param&gt;
+  
+  </code></pre>
+  </p>
+</blockquote>
+<br>
+<h2>Running the Sample </h2>
+<blockquote>
+  <p>The top level directories and files in this sample are:</p>
+  <table width="100%" border="0" align="center">
+    <tr> 
+    	<td width="10%"></td>
+      <td><font size="2">docs/</font></td>
+      <td><font size="2">the documentation about this sample </font></td>
+    </tr>
+    <tr> 
+	    <td></td>
+      <td><font size="2">vxml.sar</font></td>
+      <td align="left"><font size="2">the application archive file (SAR) </font></td>
+    </tr>
+    <tr> 
+	  <td></td>
+      <td><font size="2">vxml/</font></td>
+      <td><font size="2">the exploded application directory </font></td>
+    </tr>
+  </table>
+	<p>Please follow the following steps to deploy, configure and run this sample:</p>
+	<ol>
+	<li>Start the Media Server, such as <a href="http://www.voxeo.com/prophecy/">Voxeo Prophecy</a>.</li><br>
+	<li>Copy <em>vxml</em> directory (or <em>vxml.sar</em>) into <em><a href="../../../apps">apps</a></em> directory.</li>
+	<br>
+	<li>Configure the initialization parameters in <em><a href="../../../apps/vxml/WEB-INF/sip.xml">apps/vxml/WEB-INF/sip.xml</a></em>.</li>
+	<br>
+	<li>Use UA(e.g. X-Lite) to make the call to server. By default, the sip URL should be "sip:hello@vxml.sample.prism.voxeo.com" if the User Agent is on the same machine as SIPMethod Application Server.</li>
+	<br>
+	</ol>
+</blockquote><br>
+<!--------------End of the Content ----------------------->
+<table width="100%">
+  <tr>
+    <td colspan="3"><hr>
+    </td>
+  </tr>
+</table>
+</body>

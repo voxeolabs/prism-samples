@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Echo Sample</title>
+</head>
+<body style="font-family: Tahoma; font-size:10pt">
+<table width="100%" border="0" cellspacing="10">
+  <tr>
+    <td colspan="3" align="center"><H2> Echo Sample </H2></td>
+  </tr>
+  <tr>
+    <td colspan="3"><hr>
+    </td>
+  </tr>
+</table>
+<!----------------- Beginning of the Content ---------------------->
+<h2>Overview</h2>
+<blockquote>
+<p>This sample is a SIP/HTTP converged application. It demonstrates how SIP and HTTP servlets can work together.</p>
+  <p>The SIP servlet - EchoServlet - demonstrates how a simple user agent server 
+    handles SIP REGISTER, INVITE and MESSAGE messages. It maintains a list of 
+    registered user agent clients (e.g. X-Lite) and echo each chat message the 
+    client sends.The following diagram shows the typical call flow between X-Lite and 
+    EchoServlet.</p>
+<p align="left"><img src="images/call-flow.jpg"></p>
+<p>The HTTP part - AddressServlet - demonstrates how HTTP servlet and SIP servlet can exchange information via ServletContext. It builds a Web page to show the current registered user agent clients.. </p>
+  <p align="left"><img src="images/webpage.png" width="801" height="267"></p>
+
+</blockquote><br>
+<h2>Understanding the Sample</h2>
+<blockquote>
+<p>EchoServlet handles SIP REGISTER, INVITE, BYE, MESSAGE and INFO messages.</p>
+<p>For REGISTER message, EchoServlet maintains a mapping between the client's address-of-record and contact address so it can echo back to the client later. The mappings are stored in the servlet context.</p>
+<p>EchoServlet always responds positively for all INVITE and BYE messages. The session is implicitly managed by the SIPMethod Application Server. EchoServlet also demonstrates how to manipulate Session Description Protocol (SDP) in the INVITE message.</p>
+<p>When the EchoServlet receives SIP MESSAGE message, it confirms the acceptance with 200 OK response. Then it echoes back the message based on the Contact address previously registered in the REGISTER message.</p>
+<p>AddressServlet shares the same servlet contexts as EchoServlet so it can retrieves the address-of-record and contact address mapping maintained by EchoServlet. When AddressServlet receives HTTP GET or POST request, it builds a HTML page to display the list of the mapping.</p>
+<p>AddressManagerImpl implements AddressManager to invoke SOAP message request, it also shares the same servlet contexts as EchoServlet, When web service receives &quot;list&quot; or &quot;remove&quot; request, it will display the list of the mapping or remove input uri's mapping.</p>
+<p>For more details, please see <a href="../echo/WEB-INF/classes/com/micromethod/sipmethod/sample/echo">source codes</a>. </p>
+</blockquote><br>
+<h2>Running the Sample</h2>
+<blockquote>
+
+    <p>Please follow the  steps below to run a X-Lite with this sample:</p>
+    
+  <ol>
+    <li> 
+      <p>Copy <em>echo</em> directory (or <em>echo.sar</em>) into <em><a href="../../../apps">apps</a></em> 
+        directory. Start SIPMethod Application Server if you haven't. </p>
+    </li>
+    <li>Startup and Configure your X-Lite (or other compatible SIP Clients). 
+      <p> 
+      <ul>
+        <li>Open X-Lite 3.0 or later.</li>
+        <li>On the display board, write click and select <em> "SIP Acount Settings..."</em>.</li>
+        <p align="left"><img src="images/mainpanel.png" alt="x-lite"/></p>
+        <br>
+        <li>On the <em>SIP Accounts</em> panel, click <em>Add...</em>. </li>
+        <p align="left"><img src="images/addacount.png" /></p>
+        <br>
+        <li>Type the User Details and Domain Proxy as follow.</li>
+        <li> Then click <em>OK</em>.</li>
+        <p align="left"><img src="images/account.png" alt="advanced"/></p>
+        <br>
+      </ul></p>
+      </li>
+    <li>Register your X-Lite to "Echo Servlet" application. 
+      <p> 
+      <ul>
+        <li>Start SIP servlet container (SIPMethod Application Server) as <em>user 
+          guide</em>.</li>
+        <li>Start X-Lite,and it will register to the container.</li>
+        <p align="left"><img src="images/ready2.png" alt="messenger"/></p>
+        <br>
+      </ul></p>
+      </li>
+    <li>Use your X-Lite to chat with "Echo Servlet" application. 
+      <p> 
+      <ul>
+        <li>Click the right arrow and right click on the Group List,select &quot;Add 
+          Contact...&quot;.</li>
+        <p align="left"><img src="images/addcontact.png" alt="sign-in"/></p>
+        <br>
+        <li>On the &quot;Add Contact&quot; tab, select &quot;Softphone&quot; as 
+          the Type,type the name: <strong>echo</strong>, and then click OK.Don't 
+          forget to select&quot;Show this contact's Availability&quot;.</li>
+        <p align="left"><img src="images/addecho.png" alt="other"/></p>
+        <br>
+        <li>Right click on the &quot;echo&quot; ,and select &quot;Instant Message&quot;. 
+        </li>
+        <p align="left"><img src="images/instant.png" alt="dialog"/></p>
+        <br>
+        <br>
+        <li>Type your message in the box at the bottom of the window, and click 
+          Send.Now,you are chatting with echo.</li>
+        <p align="left"><img src="images/message.png" alt="dialog"/></p>
+        <br>
+      </ul></p>
+      </li>
+    <li>Use web browser to view the Registered Addresses table. 
+      <p> 
+      <ul>
+        <li>Start the web browser and visit <a href="http://localhost:8080/echo/addresses">http://localhost:8080/echo/addresses</a>.</li>
+        <p align="left"><img src="images/webpage.png" alt="webpage"/></p>
+      </ul>
+    </li>
+    <li>Running <a href="../client">testclient</a> script to list or remove registered 
+      addresses by web service. 
+      <p>For example: 
+      <pre>>testclient -lhttp://localhost:8080/echo/services/manager list
+>testclient remove "sip:test@echo.sample.prism.voxeo.com"</pre></p>
+      </li>
+  </ol>
+</blockquote>
+<br>
+<!--------------End of the Content ----------------------->
+<table width="100%">
+  <tr>
+    <td colspan="3"><hr>
+    </td>
+  </tr>
+</table>
+</body>

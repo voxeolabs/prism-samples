@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sip-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.jcp.org/xml/ns/sipservlet sip-app_1_1.xsd">
+	<app-name>Announcer</app-name>
+	<display-name>Announcer</display-name>
+	<description>A simple application illustrating how to write a servlet
+		communicate with the Media Server.</description>
+	<servlet>
+		<servlet-name>Announcer</servlet-name>
+		<display-name>Announcer</display-name>
+		<description>Announcer</description>
+		<servlet-class>com.micromethod.sipmethod.sample.vxml.AnnouncerServlet</servlet-class>
+		<init-param>
+			<param-name>mediaserver-host</param-name>
+			<param-value>127.0.0.1</param-value>
+			<description>Host of Media Server</description>
+		</init-param>
+		<init-param>
+			<param-name>mediaserver-port</param-name>
+			<param-value>5066</param-value>
+			<description>Port of Media Server</description>
+		</init-param>
+		<init-param>
+			<param-name>mediaserver-transport</param-name>
+			<param-value>udp</param-value>
+			<description>Transport type of Media Server</description>
+		</init-param>
+		<init-param>
+			<param-name>vxml</param-name>
+			<param-value>http://127.0.0.1:8080/vxml/</param-value>
+			<description>URL that vocie XML is hosted</description>
+		</init-param>
+		<init-param>
+			<param-name>ext</param-name>
+			<param-value>.xml</param-value>
+			<description>The extension of voice xml</description>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-selection>
+		<servlet-mapping>
+			<servlet-name>Announcer</servlet-name>
+			<pattern>
+					<and>
+						<equal ignore-case="false">
+							<var>request.method</var>
+							<value>INVITE</value>
+						</equal>
+						<equal ignore-case="false">
+							<var>request.to.uri.host</var>
+							<value>vxml.sample.prism.voxeo.com</value>
+						</equal>
+					</and>
+			</pattern>
+		</servlet-mapping>
+	</servlet-selection>
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+</sip-app>

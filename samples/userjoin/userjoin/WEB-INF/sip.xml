@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sip-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.jcp.org/xml/ns/sipservlet sip-app_1_1.xsd">
+	<app-name>UserJoin</app-name>
+	<display-name>UserJoinServlet</display-name>
+	<description>3-way Conference (Third Party Joins)</description>
+
+	<servlet>
+		<servlet-name>UserJoinServlet</servlet-name>
+		<display-name>UserJoinServlet</display-name>
+		<description>UserJoinServlet</description>
+		<servlet-class> com.micromethod.sipmethod.sample.userjoin.UserJoinServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-selection>
+		<servlet-mapping>
+			<servlet-name>UserJoinServlet</servlet-name>
+			<pattern>
+				<or>
+					<and>
+						<equal ignore-case="false">
+							<var>request.method</var>
+							<value>REGISTER</value>
+						</equal>
+						<equal ignore-case="false">
+							<var>request.from.uri.host</var>
+							<value>userjoin.sample.prism.voxeo.com</value>
+						</equal>
+					</and>
+					<and>
+						<equal ignore-case="false">
+							<var>request.method</var>
+							<value>INVITE</value>
+						</equal>
+						<equal ignore-case="false">
+								<var>request.from.uri.host</var>
+								<value>userjoin.sample.prism.voxeo.com</value>
+						</equal>
+            <equal ignore-case="false">
+                <var>request.to.uri.host</var>
+                <value>userjoin.sample.prism.voxeo.com</value>
+            </equal>
+					</and>
+				</or>
+			</pattern>
+		</servlet-mapping>
+	</servlet-selection>
+	<session-config>
+		<session-timeout>10</session-timeout>
+	</session-config>
+</sip-app>

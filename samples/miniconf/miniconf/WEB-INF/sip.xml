@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sip-app>
+  <app-name>A minimal conference application</app-name>
+  <servlet>
+    <servlet-name>miniconf</servlet-name>
+    <servlet-class>multiparty.MinimalConferenceServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-selection>
+    <servlet-mapping>
+      <servlet-name>miniconf</servlet-name>
+      <pattern>
+        <and>
+          <equal ignore-case="false">
+            <var>request.method</var>
+            <value>INVITE</value>
+          </equal>
+          <equal ignore-case="false">
+            <var>request.to.uri.host</var>
+            <value>miniconf.sample.prism.voxeo.com</value>
+          </equal>
+        </and>
+      </pattern>
+    </servlet-mapping>
+
+  </servlet-selection>
+
+  <session-config>
+    <session-timeout>-1</session-timeout>
+  </session-config>
+
+</sip-app>

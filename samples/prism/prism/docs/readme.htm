@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Prism Sample</title>
+</head>
+<body style="font-family: Tahoma; font-size:10pt">
+<table width="100%" border="0" cellspacing="10">
+  <tr>
+    <td colspan="3" align="center"><H2> Prism Sample </H2></td>
+  </tr>
+  <tr>
+    <td colspan="3"><hr>
+    </td>
+  </tr>
+</table>
+<!----------------- Beginning of the Content ---------------------->
+<h2>Overview</h2>
+<blockquote>
+<p>This sample demonstrates how to use JSR309 API to make a simple prism application in a SIP servlet.</p>
+  <p>The SIPServlet - PrismServlet - can handle SIP REGISTER, INVITE, MESSAGE, BYE request. During processing of these SIP requests, the servlet use JSR309 
+  API to negotiate a session with media server and also implement TTS, ASR, recording functions.</p>
+
+</blockquote><br>
+<h2><a name="understanding">Understanding the Sample</a></h2>
+<blockquote>
+<p>PrismServlet handles SIP REGISTER, INVITE, BYE, MESSAGE requests.</p>
+<p>For REGISTER message, PrismServlet maintains a mapping between the client's address-of-record and contact address so it can contact the client later. The mappings are stored in the servlet context.</p>
+<p>PrismServlet always responds positively for all INVITE and BYE messages. During processing INVITE request, PrismServlet use JSR309 API to negotiate a session to media server for the incoming call.
+ After the call is successfully established, the servlet use JSR309 API to play some prompt for user, and detect signals from user to implement IVR functions. The implemented IVR functions are as follows:</p>
+
+<ul>
+<li>Main menu: After the call is established, the application enters main menu. In the main menu, application will play some welcome message, and prompt user to say or press 1 to test TTS function, say or press 2 to test recording function.</li><br/>
+<li>TTS function test: If user presses or says 1 in the main menu, the application enters TTS function test. The application will send a prompt Instance Message to user, then the user will see a pop-out Instance Message window. If user send messages, the application will use the JSR309 API to play back the messages for user. </li><br/>
+<li>Record function test: If user presses or says 2 in the main menu, the application enters recording function test. The application will prompt user it is going to start record after a beep, then user can say something to record. User can stop the recording by pressing 4, after the recording is stopped, the application will play back the recorded voice. </li>
+</ul>
+
+
+<p>For more details, please see <a href="../prism/WEB-INF/classes/com/voxeo/prism/sample">source codes</a>. </p>
+</blockquote><br>
+<h2><a name="running">Running the Sample</a></h2>
+<blockquote>
+
+    <p>Please follow the  steps below to run a X-Lite with this sample:</p>
+    
+  <ol>
+    <li> 
+      <p>Prism application is installed under <em><a href="../../../apps">apps</a></em> by default. 
+      You can re-install it by copy <em>prism</em> directory (or <em>prism.sar</em>) into <em><a href="../../../apps">apps</a></em> 
+        directory. Start Prism Server if you haven't. </p>
+    </li>
+    <li>Startup and Configure your X-Lite (or other compatible SIP Clients). 
+      <p> 
+      <ul>
+        <li>Open X-Lite 3.0 or later. For Mac Snow Leopard user, X-Lite 4.0 (beta and above) must be used.</li>
+        <li>On the display board, write click and select <em> "SIP Acount Settings..."</em>.</li>
+        <p align="left"><img src="images/mainpanel.png" alt="x-lite"/></p>
+        <br>
+        <li>On the <em>SIP Accounts</em> panel, click <em>Add...</em>. </li>
+        <p align="left"><img src="images/addacount.png" /></p>
+        <br>
+        <li>Type the User Details and Domain Proxy as follow.</li>
+        <li> Then click <em>OK</em>.</li>
+        <p align="left"><img src="images/account.png" alt="advanced"/></p>
+        <br>
+      </ul></p>
+      </li>
+    <li>Register your X-Lite to "Prism" application. 
+      <p> 
+      <ul>
+        <li>Start Prism Application Server as <em>user 
+          guide</em>.</li>
+        <li>Start X-Lite,and it will register to the container.</li>
+        <p align="left"><img src="images/ready2.png" alt="messenger"/></p>
+        <br>
+      </ul></p>
+      </li>
+    <li>Use your X-Lite to interact with "Prism" application. 
+      <p> 
+      <ul>
+        <li>Click the right arrow and right click on the Group List,select &quot;Add 
+          Contact...&quot;.</li>
+        <p align="left"><img src="images/addcontact.png" alt="sign-in"/></p>
+        <br>
+        <li>On the &quot;Add Contact&quot; tab, select &quot;Softphone&quot; as 
+          the Type,type the name: <strong>echo</strong>, and then click OK.</li>
+        <p align="left"><img src="images/addecho.png" alt="other"/></p>
+        <br>
+        <li>Right click on the &quot;echo&quot; ,and select &quot;Call&quot;. 
+        </li>
+        <p align="left"><img src="images/call.png" alt="dialog"/></p>
+        <br>
+        <br>
+        <li>you will see the call is established successfully. The application will play some prompt, follow the prompt, you can try the IVR functions now. For implemented IVR functions, see <a href="#understanding">Understanding the Sample</a></li>
+        <p align="left"><img src="images/callEstablished.png" alt="dialog"/></p>
+        <br>
+      </ul></p>
+      </li>
+  </ol>
+</blockquote>
+<br>
+<!--------------End of the Content ----------------------->
+<table width="100%">
+  <tr>
+    <td colspan="3"><hr>
+    </td>
+  </tr>
+</table>
+</body>

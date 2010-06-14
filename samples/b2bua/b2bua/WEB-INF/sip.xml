@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sip-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.jcp.org/xml/ns/sipservlet sip-app_1_1.xsd">
+	<app-name>B2BUA</app-name>
+	<description>A simple application illustrating how to write a
+		back-to-back user agent (B2BUA).</description>
+	<servlet>
+		<servlet-name>B2BUA</servlet-name>
+		<display-name>B2BUA</display-name>
+		<description>B2BUA</description>
+		<servlet-class>com.micromethod.sipmethod.sample.b2bua.B2BUA</servlet-class>
+		<init-param>
+			<param-name>remote</param-name>
+			<param-value>127.0.0.1</param-value>
+			<description>UAS IP address</description>
+		</init-param>
+		<init-param>
+			<param-name>transport</param-name>
+			<param-value>udp</param-value>
+			<description>connect UAS transport</description>
+		</init-param>
+		<init-param>
+			<param-name>port</param-name>
+			<param-value>5060</param-value>
+			<description>UAS port</description>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>B2BUAByB2buaHelper</servlet-name>
+		<display-name>B2BUAByB2buaHelper</display-name>
+		<description>B2BUAByB2buaHelper</description>
+		<servlet-class>com.micromethod.sipmethod.sample.b2bua.B2BUAByB2buaHelper</servlet-class>
+		<init-param>
+			<param-name>remote</param-name>
+			<param-value>127.0.0.1</param-value>
+			<description>UAS IP address</description>
+		</init-param>
+		<init-param>
+			<param-name>transport</param-name>
+			<param-value>udp</param-value>
+			<description>connect UAS transport</description>
+		</init-param>
+		<init-param>
+			<param-name>port</param-name>
+			<param-value>5060</param-value>
+			<description>UAS port</description>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-selection>
+		<servlet-mapping>
+			<servlet-name>B2BUA</servlet-name>
+			<pattern>
+					<and>
+						<equal ignore-case="false">
+							<var>request.method</var>
+							<value>INVITE</value>
+						</equal>
+						<equal ignore-case="false">
+							<var>request.to.uri.host</var>
+							<value>b2bua.sample.prism.voxeo.com</value>
+						</equal>
+					</and>
+			</pattern>
+		</servlet-mapping>
+	</servlet-selection>
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+</sip-app>

@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>SIPMethod API Sample</title>
+</head>
+<body style="font-family: Tahoma; font-size:10pt">
+<table width="100%" border="0" cellspacing="10">
+  <tr>
+    <td colspan="3" align="center"><H2> SIPMethod API Sample </H2></td>
+  </tr>
+  <tr>
+    <td colspan="3"><hr>
+    </td>
+  </tr>
+</table>
+<!----------------- Beginning of the Content ---------------------->
+<h2>Overview</h2>
+<blockquote>
+  <p>This sample demonstrates how to use SIPMethod APIs to access server information.</p>
+</blockquote>
+<br>
+<h2>Understanding the Sample</h2>
+<blockquote>
+  <p>ExtensionServlet handles SIP REGISTER, INVITE, BYE, MESSAGE and INFO messages.It uses SIPMethod API to get server information and respond to the client.</p>
+  
+  <p>When the ExtensionServlet receives SIP MESSAGE message, it accepts the message 
+    with 200 OK response. With X-Lite, user can get server information by typing commands in the instant message.
+   Such as:</p>
+   <ul>
+   <li>Type 'help' to get the help about this sample.</li>
+   <li>Type application name to get the size of the ApplicationSessions belong to the application.</li>
+   <li>Type 'all' to get the size of the ApplicationSessions that the server has.</li>
+   <li>Type 'applications' to list all applications that the server has.</li>
+   <li>Type 'state' to get the server's state.</li>
+  </ul>
+<p>The following code snippet shows how to access <a href="../../../docs/api/com/micromethod/sipmethod/server/container/ContainerMBean.html">ContainerMBean</a> within the servlet.</p>
+<blockquote>
+  @Resource(name = ModuleConstants.SNAME_CONTAINER)<br>
+  protected ContainerMBean _container;
+</blockquote>
+<p>The following code snippet shows how to access <a href="../../../docs/api/com/micromethod/sipmethod/server/container/SIPMethodSipSessionsUtil.html">SIPMethodSipSessionsUtil</a> within the servlet.</p>
+<blockquote>
+   protected SIPMethodSipSessionsUtil _sipSessionsUtil = null;<br>
+  _sipSessionsUtil = (SIPMethodSipSessionsUtil) getServletContext().getAttribute(SIP_SESSIONS_UTIL);<br>
+</blockquote>
+<p>For more details, please see <a href="../extension/WEB-INF/classes/com/micromethod/sipmethod/sample/extension/">source codes</a>. </p>
+</blockquote><br>
+<h2>Running the Sample</h2>
+<blockquote>
+
+    <p>Please follow the  steps below to run a X-Lite with this sample:</p>
+    
+  <ol>
+    <li> 
+      <p>Copy <em>extension</em> directory (or <em>extension.sar</em>) into <em><a href="../../../apps">apps</a></em> 
+        directory. Start SIPMethod Application Server if you haven't. </p>
+    </li>
+    <li>Startup and Configure your X-Lite (or other compatible SIP Clients). 
+      <p> 
+      <ul>
+        <li>Open X-Lite 3.0 or later.</li>
+        <li>On the display board, write click and select <em> "SIP Acount Settings..."</em>.</li>
+        <p align="left"><img src="./images/mainpanel.png" alt="x-lite"/></p>
+        <br>
+        <li>On the <em>SIP Accounts</em> panel, click <em>Add...</em>. </li>
+        <p align="left"><img src="./images/addacount.png" /></p>
+        <br>
+        <li>Type the User Details and Domain Proxy as follow. You can replace the Proxy IP address with the IP where SIPMethod is running.</li>
+        <p align="left"><img src="./images/account.png" alt="advanced"/></p>
+        <li> Then click <em>OK</em>.</li>
+        <br>
+      </ul></p>
+      </li>
+        <li>Use your X-Lite to chat with Extension application. 
+      <p> 
+      <ul>
+        <li>Click the right arrow and right click on the Group List,select &quot;Add 
+          Contact...&quot;.</li>
+        <p align="left"><img src="./images/addcontact.png" alt="sign-in"/></p>
+        <br>
+        <li>On the &quot;Add Contact&quot; tab, select &quot;Softphone&quot; as 
+          the Type,type the name: <strong>extension</strong>, and then click OK.Don't 
+          forget to select&quot;Show this contact's Availability&quot;.</li>
+        <p align="left"><img src="./images/addinvoker.png" alt="other"/></p>
+        <br>
+        <li>Right click on the &quot;extension&quot; ,and select &quot;Instant Message&quot;. 
+        </li>
+        <p align="left"><img src="./images/instant.png" alt="dialog"/></p>
+        <br>
+        <br>
+        <li>Type your message in the box at the bottom of the window, and click 
+          Send. Now,you are chatting with the Extension application.</li>
+        <p align="left"><img src="./images/message.png" alt="dialog"/></p>
+        <br>
+      </ul>
+    </li>
+  </ol>
+</blockquote>
+<br>
+<!--------------End of the Content ----------------------->
+<table width="100%">
+  <tr>
+    <td colspan="3"><hr>
+    </td>
+  </tr>
+</table>
+</body>

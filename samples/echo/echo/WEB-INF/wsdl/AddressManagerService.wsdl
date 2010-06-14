@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions
+	targetNamespace="http://echo.sample.sipmethod.micromethod.com/"
+	name="AddressManagerService"
+	xmlns:tns="http://echo.sample.sipmethod.micromethod.com/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns="http://schemas.xmlsoap.org/wsdl/">
+	<types>
+		<xsd:schema>
+			<xsd:import
+				namespace="http://echo.sample.sipmethod.micromethod.com/"
+				schemaLocation="AddressManagerServiceSchema.xsd" />
+		</xsd:schema>
+	</types>
+	<message name="getRegisteredAddresses">
+		<part name="parameters" element="tns:getRegisteredAddresses" />
+	</message>
+	<message name="getRegisteredAddressesResponse">
+		<part name="parameters"
+			element="tns:getRegisteredAddressesResponse" />
+	</message>
+	<message name="removeRegister">
+		<part name="parameters" element="tns:removeRegister" />
+	</message>
+	<message name="removeRegisterResponse">
+		<part name="parameters" element="tns:removeRegisterResponse" />
+	</message>
+	<portType name="AddressManager">
+		<operation name="getRegisteredAddresses">
+			<input message="tns:getRegisteredAddresses" />
+			<output message="tns:getRegisteredAddressesResponse" />
+		</operation>
+		<operation name="removeRegister">
+			<input message="tns:removeRegister" />
+			<output message="tns:removeRegisterResponse" />
+		</operation>
+	</portType>
+	<binding name="AddressManagerPortBinding"
+		type="tns:AddressManager">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"
+			style="document" />
+		<operation name="getRegisteredAddresses">
+			<soap:operation soapAction="" />
+			<input>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+		<operation name="removeRegister">
+			<soap:operation soapAction="" />
+			<input>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+	</binding>
+	<service name="AddressManagerService">
+		<port name="AddressManagerPort"
+			binding="tns:AddressManagerPortBinding">
+			<soap:address location="http://localhost:8080/echo/services/manager?wsdl"/>
+		</port>
+	</service>
+</definitions>
+

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sip-app>
+
+  <app-name>Prism</app-name>
+  <display-name>Prism Sample</display-name>
+  <servlet>
+    <servlet-name>PrismSample</servlet-name>
+    <servlet-class>com.voxeo.prism.sample.PrismServlet
+    </servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-selection>
+    <servlet-mapping>
+      <servlet-name>PrismSample</servlet-name>
+      <pattern>
+        <or>
+          <and>
+            <equal ignore-case="false">
+              <var>request.method</var>
+              <value>REGISTER</value>
+            </equal>
+            <not>
+              <subdomain-of ignore-case="false">
+                <var>request.from.uri.host</var>
+                <value>sample.prism.voxeo.com</value>
+              </subdomain-of>
+            </not>
+          </and>
+          <and>
+            <or>
+              <equal ignore-case="false">
+                <var>request.method</var>
+                <value>MESSAGE</value>
+              </equal>
+              <equal ignore-case="false">
+                <var>request.method</var>
+                <value>INVITE</value>
+              </equal>
+              <equal ignore-case="false">
+                <var>request.method</var>
+                <value>SUBSCRIBE</value>
+              </equal>
+            </or>
+
+            <not>
+              <subdomain-of ignore-case="false">
+                <var>request.from.uri.host</var>
+                <value>sample.prism.voxeo.com</value>
+              </subdomain-of>
+            </not>
+            <not>
+              <subdomain-of ignore-case="false">
+                <var>request.to.uri.host</var>
+                <value>sample.prism.voxeo.com</value>
+              </subdomain-of>
+            </not>
+
+          </and>
+        </or>
+      </pattern>
+    </servlet-mapping>
+  </servlet-selection>
+
+  <session-config>
+    <session-timeout>5</session-timeout>
+  </session-config>
+
+</sip-app>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sip-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.jcp.org/xml/ns/sipservlet sip-app_1_1.xsd">
+	<app-name>FindMe</app-name>
+	<display-name>A Simple SIP Servlet FindMe Proxy Application</display-name>
+	<servlet>
+		<servlet-name>findme</servlet-name>
+		<servlet-class>com.micromethod.sipmethod.sample.findme.FindMeServlet</servlet-class>
+		<init-param>
+			<param-name>contacts</param-name>
+			<param-value>sip:192.168.0.101:5000;transport=udp</param-value>
+		</init-param>
+		<init-param>
+			<param-name>findme</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<load-on-startup />
+	</servlet>
+	<servlet-selection>
+		<servlet-mapping>
+			<servlet-name>findme</servlet-name>
+			<pattern>
+					<and>
+						<equal ignore-case="false">
+							<var>request.method</var>
+							<value>INVITE</value>
+						</equal>
+						<equal ignore-case="false">
+							<var>request.to.uri.host</var>
+							<value>findme.sample.prism.voxeo.com</value>
+						</equal>
+					</and>
+			</pattern>
+		</servlet-mapping>
+	</servlet-selection>
+	<session-config>
+		<session-timeout>10</session-timeout>
+	</session-config>
+</sip-app>

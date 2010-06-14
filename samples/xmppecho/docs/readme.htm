@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>XMPP Echo Sample</title>
+</head>
+<body style="font-family: Tahoma; font-size:10pt">
+<table width="100%" border="0" cellspacing="10">
+  <tr>
+    <td colspan="3" align="center"><H2>XMPP echo</H2></td>
+  </tr>
+  <tr>
+    <td colspan="3"><hr>
+    </td>
+  </tr>
+</table>
+<!----------------- Beginning of the Content ---------------------->
+<h2>Overview</h2>
+<blockquote>
+  <p>The XMPP servlet - EchoServlet - demonstrates how a simple XMPP IM server
+    handles XMPP client logon, client messages, XMPP s2s communication, and s2s messages. It maintains a list of 
+    accounts, user agent clients (e.g. Spark) can logon to this IM server using these accounts. after logon, you can see a user named 
+    echo in your buddies list, this user will echo each chat message the 
+    client sends. </p>
+    <p>
+    This simple IM server can also negotiate s2s communication and handle some s2s messages. For example, Let's say this sample is running on domain beatr.com.
+    if you are using gtalk, and add any XMPP account in this domain to your gtalk buddies list, then gtalk server 
+    will communicate with this IM server. The result is that you success to add the XMPP account, the account shows online and it will echo each chat message 
+    you send to it.
+     </p>
+  
+</blockquote><br>
+<h2>Understanding the Sample </h2>
+<blockquote>
+  <p>EchoServlet handles XMPP client logon, client messages, XMPP s2s communication, and s2s messages.</p>
+  <p>When a XMPP client start to communicate with this application, this application will negotiate a c2s session with that client. After that, 
+  client will send a roster request, EchoServlet will process the request to add the echo user to the roster of the client. If the client chat with the echo user,
+   the EchoServlet will echoe back the same message.</p>
+   
+  <p>For s2s communication, after you logon your XMPP compatible IM server(for example, gtalk), if you add a buddy whose domain is the one this application is running on. 
+  Your XMPP server will negotiate a s2s session with this application, and send a subscription request on that session. When the EchoServlet receives that subscription 
+  message, it will pass for the requested user to accept the request, and send a message to show it is online. If you chat with that user, your IM server will send your message
+   to this application, then again the EchoServlet pass for the user to send back the same message to you.
+  </p>
+</blockquote>
+<br>
+<h2>Running the Sample </h2>
+<blockquote>
+  <p>The top level directories and files in this sample are:</p>
+  <table width="100%" border="0" align="center">
+    <tr> 
+    	<td width="10%"></td>
+      <td><font size="2">docs/</font></td>
+      <td><font size="2">the documentation about this sample </font></td>
+    </tr>
+    <tr> 
+	    <td></td>
+      <td><font size="2">xmppecho.sar</font></td>
+      <td align="left"><font size="2">the application archive file (SAR) </font></td>
+    </tr>
+    <tr> 
+	  <td></td>
+      <td><font size="2">xmppecho/</font></td>
+      <td><font size="2">the exploded application directory </font></td>
+    </tr>
+    <tr> 
+  </table>
+	<p>Please follow the following steps to deploy, configure and run this sample:</p>
+	
+	 <li> 
+      <p>Copy <em>xmppecho</em> directory (or <em>xmppecho.sar</em>) into <em><a href="../../../apps">apps</a></em> 
+        directory. Modify xmpp.xml at xmppecho/WEB-INF, replace the value in element xmpp:servdomain with the domain you are using. 
+        or just leave it if you are not going to run the s2s communication function.
+         Start SIPMethod Application Server if you haven't. </p>
+    </li>
+    <li>Startup and Configure your Spark (or other compatible XMPP Clients). 
+      <p> 
+      <ul>
+        <li>Open Spark 2.5.8.</li>
+        <br>
+        <li>On the display board, configure using these info, Username:userc, Password:1, Server: the domain you configured in the previous step.</li>
+        <p align="left"><img src="images/mainpanel.png" alt="x-lite"/></p>
+        <br>
+        <li>If you are not using a real domain name(i.e. you are not using a registered domain, that also means you can't run the s2s communication function),
+        you have to configure the IP info of the machine that SIPMethod is running on, because Spark can't get the IP info from DNS with the domain you have configured.
+        Click the <em>Advanced</em> button. configure Host with the server IP address. Then click OK button.</li>
+        <p align="left"><img src="images/advanced.png" /></p>
+      </ul>
+      </li>
+    <li>Logon to "XMPP Echo Servlet" application. 
+      <p> 
+      <ul>
+        <li>click the login button on the main panel of Spark. The result is as following. </li>
+        <p align="left"><img src="images/logon.png" alt="messenger"/></p>
+        
+        <li>double click on echo. you can chat with echo now, it will echo all messages you send.</li>
+        <p align="left"><img src="images/chatwithecho.png" alt="messenger"/></p>
+        <br>
+      </ul>
+    </li>
+	<p>The following steps are for s2s communication. You can run s2s function only when you have configured this application with a registered domain name in the previous step. </p>
+	  <li>Logon to gtalk with your account, or if you haven't one, just use the account we have registered for these sample: testxmppclient@gmail.com, password:testxmppclient_1.</li>
+	  <br>
+	  <li>add any XMPP account in the previous configured domain to your buddies list. for example, if you configured domain is beatr.com, 
+	   you can add test@beatr.com to your buddies list. The result is that you success to add the XMPP account, the account shows online and it will echo each chat message 
+    you send to it.</li>
+</blockquote><br>
+<!--------------End of the Content ----------------------->
+<table width="100%">
+  <tr>
+    <td colspan="3"><hr>
+    </td>
+  </tr>
+</table>
+</body>

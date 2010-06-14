@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Sip Application Router Sample</title>
+</head>
+<body style="font-family: Tahoma; font-size:10pt">
+<table width="100%" border="0" cellspacing="10">
+  <tr>
+    <td colspan="3" align="center"><H2>Sip Application Router Sample</H2></td>
+  </tr>
+  <tr>
+    <td colspan="3"><hr>
+    </td>
+  </tr>
+</table>
+<!-- Beginning of the Content-->
+<h2>Overview</h2>
+<blockquote>
+  <p>This sample Sip Application Router demonstrates how to write a SIP Application Router to select a SIP servlet application to service an initial request. </p>
+</blockquote><br>
+<h2>Understanding the Sample </h2>
+<blockquote>
+  <p>The Application Router is called by the container to select a SIP servlet application to service an initial request. It embodies the logic used to choose which applications to invoke. The Application Router and the Container have a simple contract defined by the SipApplicationRouter interface.</p>
+  <p>The SipForwardApplicationRouter was written to support binding an application to a specific local port. I.e. an application is virtually hosted at a specific port.</p>
+  <p>The mapping is configured in a simple text file. Each line is a mapping in format of <em>port</em>:<em>application name</em>. For example:</p>
+    <blockquote>
+      <em>
+        5060:echo<br>
+        5061:findme<br>
+        ...
+      </em>
+    </blockquote>
+    <p>In this example, the SipForwardApplicationRouter is setup to invoke echo for the SIP message sent to 5060 port of server, invoke findme for the SIP message sent to 5061 port.
+       The applications are identified by their names as defined in the application deployment descriptors and used here.</p>
+    <p>The location of the configuration can be specified in the system property "com.micromethod.sipmethod.sample.ar.configuration".
+    The location can also be specified in <em>sipmethod.xml</em> if this sample AR is configured in <em>sipmethod.xml</em>, as shown in the following example.</p>
+    <blockquote><code><pre>
+      &lt;SIP ...&gt;
+        &lt;SipApplicationRouter provider="com.micromethod.sipmethod.sample.ar.SipForwardApplicationRouterProvider"&gt;
+          &lt;Attribute name="path"&gt;server/router/port-mapping.properties&lt;/Attribute&gt;
+        &lt;/SipApplicationRouter&gt;
+      &lt;/SIP&gt;
+    </pre></code>
+    </blockquote> 
+  </p>
+</blockquote><br>
+
+<h2>Running the Sample </h2>
+<blockquote>
+  <p>The top level directories and files in this sample are:</p>
+  <table width="100%" border="0" align="center">
+    <tr> 
+    	<td width="10%"></td>
+      <td><font size="2">docs/</font></td>
+      <td><font size="2">the documentation about this sample </font></td>
+    </tr>
+    <tr> 
+	    <td></td>
+      <td><font size="2">sipforward-router.jar</font></td>
+      <td align="left"><font size="2">the archive file (JAR) </font></td>
+    </tr>
+    <tr> 
+	    <td></td>
+      <td><font size="2">port-mapping.properties</font></td>
+      <td align="left"><font size="2">the configuration file for SipForwardApplicationRouter</font></td>
+    </tr>
+  </table>
+    <p>The following steps show how to use <code>SipForwardApplicationRouter</code> to host 
+    <a href="../../echo/docs/readme.htm">echo</a> and <a href="../../findme/docs/readme.htm">findme</a> samples on different ports respectively.</p>
+    <ol>
+    <li>Please run <a href="../../echo/docs/readme.htm">echo</a> and <a href="../../findme/docs/readme.htm">findme</a> samples first.</li>
+    <br>
+    <li>Copy <em>sipforward-router.jar</em> and <em>port-mapping.properties</em> into <em><a href="../../../server/router">server/router</a></em> directory.</li>
+    <br>
+    <li>Add additional ports and SipForwardApplicationRouter in <em>conf/sipmethod.xml</em>.It will look something like this:. 
+      <pre><code>
+          &lt;NetworkAccessPoint transport=&quot;udp&quot; address=&quot;0.0.0.0&quot; port=&quot;5060&quot;/&gt;
+          &lt;NetworkAccessPoint transport=&quot;udp&quot; address=&quot;0.0.0.0&quot; port=&quot;5061&quot;/&gt;
+          &lt;SIP ...&gt;
+            &lt;SipApplicationRouter provider="com.micromethod.sipmethod.sample.ar.SipForwardApplicationRouterProvider"&gt;
+              &lt;Attribute name=&quot;path&quot;&gt;server/router/port-mapping.properties&lt;/Attribute&gt;
+            &lt;/SipApplicationRouter&gt;
+          &lt;/SIP&gt;
+      </code></pre>
+    </li>
+    <li>You have to restart SIPMethod Application Server after you change the configuration in order for changes to be effective. <br></li><br>
+    <li>Now <a href="../../echo/docs/readme.htm">echo</a> is running on  port 5060, and <a href="../../findme/docs/readme.htm">findme</a> is running on port 5061. 
+    You may follow the instructions in <a href="../../echo/docs/readme.htm">echo</a> and <a href="../../findme/docs/readme.htm">findme</a> to test the samples with different port.</li><br> 
+    </ol>
+  </blockquote><br>
+<!--------------End of the Content ----------------------->
+<table width="100%">
+  <tr>
+    <td colspan="3"><hr>
+    </td>
+  </tr>
+</table>
+</body>
