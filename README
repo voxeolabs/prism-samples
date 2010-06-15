@@ -1,116 +1,80 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Voxeo Prism Application Server Sample Applications</title>
-</head>
-<body style="font-family: Tahoma; font-size:10pt">
-<table width="100%" border="0" cellspacing="10">
-  <tr>
-    <td colspan="3" align="center"><H2>Sample Applications</H2></td>
-  </tr>
-</table>
-<!----------------- Beginning of the Content ---------------------->
-<p>The followings are sample applications that demonstrate how to use SIP servlet technology to build converged SIP/HTTP/JSR-309/XMPP applications based on Voxeo Prism Application Server.</p><br>
-<center>
-  <table width="95%" border="0" align="center" cellpadding="5" cellspacing="0" bordercolorlight="#888888" bordercolordark="#ffffff" bgcolor="#CCCCCC">
-    <tr height="35" align="left" bgcolor="#FFFFFF" class="bold">
-      <td width="27%"><strong>Sample Application</strong> </td>
-      <td width="13%"><strong>Directory</strong> </td>
-      <td width="60%"><strong>Brief Description</strong> </td>
-    </tr>
-    <tr height="35" align="left" bgcolor="#FFFFFF" class="bold">
-     	<td><a href="prism/docs/readme.htm">A Converged Prism Application</a></td>
-      <td><a href="prism">prism</a></td>
-      <td>This sample demonstrates how to write a simple application with SIP Servlet API and JSR-309 API</td>
-    </tr>    
-    <tr height="35" align="left" bgcolor="#FFFFFF" class="bold">
-      <td><a href="echo/docs/readme.htm">A Converged User Agent Server</a></td>
-      <td><a href="echo">echo</a></td>
-      <td>This sample  demonstrates how to write a UAS SIP servlet with a Web interface and a Web Service. </td>
-    </tr>
-    <tr height="35" align="left" bgcolor="#FFFFFF" class="bold">
-      <td><a href="b2bua/docs/readme.htm">A Back-To-Back User Agent</a></td>
-      <td><a href="b2bua">b2bua</a></td>
-      <td>This sample demonstrates how to write a simple B2BUA SIP servlet.</td>
-    </tr>
-    <tr height="35" align="left" bgcolor="#FFFFFF" class="bold">
-      <td><a href="findme/docs/readme.htm">A Find-Me Application </a></td>
-      <td><a href="findme">findme</a></td>
-      <td>This sample demonstrates how to write a simple Find-Me and Single Line Extension application by leveraging built-in SIP proxy function. This sample also demonstrate how to write a JWS based Web Service. </td>
-    </tr>
-    <tr height="35" align="left" bgcolor="#FFFFFF" class="bold">
-      <td><a href="clicktodial/docs/readme.htm">A Click-To-Dial Application</a></td>
-      <td><a href="clicktodial">clicktodial</a></td>
-      <td>This sample demonstrates how to write a simple Click-To-Dial application. It also demonstrate how to use Web Services to do Click-To-Dial. </td>
-    </tr>    
-    <tr height="35" align="left" bgcolor="#FFFFFF" class="bold">
-      <td><a href="vxml/docs/readme.htm">An IVR application</a></td>
-      <td><a href="vxml">vxml</a></td>
-      <td>This sample demonstrates how to write a simple IVR Application.</td>
-    </tr>
-    <tr height="35" align="left" bgcolor="#FFFFFF" class="bold">
-      <td><a href="ar/docs/readme.htm">An Application Router</a></td>
-      <td><a href="ar">ar</a></td>
-      <td>This sample demonstrates how to write a simple Application Router.</td>
-    </tr>
-     <tr height="35" align="left" bgcolor="#FFFFFF" class="bold">
-      <td><a href="extension/docs/readme.htm">SIPMethod API Sample </a></td>
-      <td><a href="extension">extension</a></td>
-      <td>This sample demonstrates how to use SIPMethod APIs.</td>
-    </tr>
-    <tr height="35" align="left" bgcolor="#FFFFFF" class="bold">
-      <td><a href="userjoin/docs/readme.htm">A 3-way Conference Application</a></td>
-      <td><a href="userjoin">userjoin</a></td>
-      <td>This is a sample conferencing application based on <a href="http://www.tech-invite.com/Ti-sip-service-11.html">Third Party Joins</a>.</td>
-    </tr>
-    <tr height="35" align="left" bgcolor="#FFFFFF" class="bold">
-      <td><a href="convergence/docs/readme.htm">A Convergence Application</a></td>
-      <td><a href="convergence">convergence</a></td>
-      <td>It demonstrates how SIP, HTTP and XMPP servlets can work together.</td>
-    </tr>
-    <tr height="35" align="left" bgcolor="#FFFFFF" class="bold">
-      <td><a href="xmppecho/docs/readme.htm">A Simple XMPP Server Application</a></td>
-      <td><a href="xmppecho">xmppecho</a></td>
-      <td>demonstrates how a simple XMPP IM server
-    handles XMPP client logon, client messages, XMPP s2s communication, and s2s messages.</a>.</td>
-    </tr>
-    <tr height="35" align="left" bgcolor="#FFFFFF" class="bold">
-      <td><a href="xmppclient/docs/readme.htm">A Simple XMPP Client Application</a></td>
-      <td><a href="xmppclient">xmppclient</a></td>
-      <td>This sample application demonstrates how to implement a XMPP client using XMPP servlet technology.</td>
-    </tr>
-    <tr height="35" align="left" bgcolor="#FFFFFF" class="bold">
-      <td><a href="play/docs/readme.htm">A Player Application</a></td>
-      <td><a href="play">play</a></td>
-      <td>This sample demonstrates how to write a simple play application with JSR-309 API. </td>
-    </tr>
-    <tr height="35" align="left" bgcolor="#FFFFFF" class="bold">
-      <td><a href="asyncPlay/docs/readme.htm">A Aynchronized Player Application</a></td>
-      <td><a href="asyncPlay">asyncPlay</a></td>
-      <td>This sample demonstrates how to write a simple play application that uses asynchronous join operation with JSR-309 API</td>
-    </tr>
-    <tr height="35" align="left" bgcolor="#FFFFFF" class="bold">
-      <td><a href="collect/docs/readme.htm">A Prompt and Collect Application</a></td>
-      <td><a href="collect">collect</a></td>
-      <td>This sample demonstrates how to write a prompt and collect application with JSR-309 API</td>
-    </tr>
-    <tr height="35" align="left" bgcolor="#FFFFFF" class="bold">
-      <td><a href="miniconf/docs/readme.htm">A Minimal Conference Application</a></td>
-      <td><a href="miniconf">miniconf</a></td>
-      <td>This sample demonstrates how to write a simple single conference application with JSR-309 API</td>
-    </tr>
-    <tr height="35" align="left" bgcolor="#FFFFFF" class="bold">
-      <td><a href="multiparty/docs/readme.htm">A Multiparty Conference Application</a></td>
-      <td><a href="multiparty">multiparty</a></td>
-      <td>This sample demonstrates how to write a simple multiparty conference application with JSR-309 API</td>
-    </tr>
-    <tr height="35" align="left" bgcolor="#FFFFFF" class="bold">
-      <td><a href="voicemail/docs/readme.htm">A Voicemail Application</a></td>
-      <td><a href="voicemail">voicemail</a></td>
-      <td>This sample demonstrates how to write a simple voicemail application with JSR-309 API</td>
-    </tr>   
-  </table>
-  <br/>  <br/>  <br/>
-</center>
-</body>
+
+    Sample Applications
+
+The followings are sample applications that demonstrate how to use SIP
+servlet technology to build converged SIP/HTTP/JSR-309/XMPP applications
+based on Voxeo Prism Application Server.
+
+
+*Sample Application* 	*Directory* 	*Brief Description*
+A Converged Prism Application <prism/docs/readme.htm> 	prism 	This
+sample demonstrates how to write a simple application with SIP Servlet
+API and JSR-309 API
+
+A Converged User Agent Server <echo/docs/readme.htm> 	echo 	This sample
+demonstrates how to write a UAS SIP servlet with a Web interface and a
+Web Service.
+
+A Back-To-Back User Agent <b2bua/docs/readme.htm> 	b2bua 	This sample
+demonstrates how to write a simple B2BUA SIP servlet.
+
+A Find-Me Application <findme/docs/readme.htm> 	findme 	This sample
+demonstrates how to write a simple Find-Me and Single Line Extension
+application by leveraging built-in SIP proxy function. This sample also
+demonstrate how to write a JWS based Web Service.
+
+A Click-To-Dial Application <clicktodial/docs/readme.htm> 	clicktodial
+This sample demonstrates how to write a simple Click-To-Dial
+application. It also demonstrate how to use Web Services to do
+Click-To-Dial.
+
+An IVR application <vxml/docs/readme.htm> 	vxml 	This sample
+demonstrates how to write a simple IVR Application.
+
+An Application Router <ar/docs/readme.htm> 	ar 	This sample demonstrates
+how to write a simple Application Router.
+
+SIPMethod API Sample <extension/docs/readme.htm> 	extension 	This sample
+demonstrates how to use SIPMethod APIs.
+
+A 3-way Conference Application <userjoin/docs/readme.htm> 	userjoin
+This is a sample conferencing application based on Third Party Joins
+<http://www.tech-invite.com/Ti-sip-service-11.html>.
+
+A Convergence Application <convergence/docs/readme.htm> 	convergence 	It
+demonstrates how SIP, HTTP and XMPP servlets can work together.
+
+A Simple XMPP Server Application <xmppecho/docs/readme.htm> 	xmppecho
+demonstrates how a simple XMPP IM server handles XMPP client logon,
+client messages, XMPP s2s communication, and s2s messages..
+
+A Simple XMPP Client Application <xmppclient/docs/readme.htm>
+xmppclient 	This sample application demonstrates how to implement a XMPP
+client using XMPP servlet technology.
+
+A Player Application <play/docs/readme.htm> 	play 	This sample
+demonstrates how to write a simple play application with JSR-309 API.
+
+A Asynchronous Player Application <asyncPlay/docs/readme.htm>
+asyncPlay 	This sample demonstrates how to write a simple play
+application that uses asynchronous join operation with JSR-309 API
+
+A Prompt and Collect Application <collect/docs/readme.htm> 	collect
+This sample demonstrates how to write a prompt and collect application
+with JSR-309 API
+
+A Minimal Conference Application <miniconf/docs/readme.htm> 	miniconf
+This sample demonstrates how to write a simple single conference
+application with JSR-309 API
+
+A Multiparty Conference Application <multiparty/docs/readme.htm>
+multiparty 	This sample demonstrates how to write a simple multiparty
+conference application with JSR-309 API
+
+A Voicemail Application <voicemail/docs/readme.htm> 	voicemail 	This
+sample demonstrates how to write a simple voicemail application with
+JSR-309 API
+
+
+
+
