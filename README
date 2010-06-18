@@ -1,4 +1,3 @@
-
 Voxeo Prism Sample Applications
 
 The followings are sample applications that demonstrate how to use SIP servlet technology to build converged SIP/HTTP/JSR-309/XMPP applications based on Voxeo Prism Application Server.
@@ -61,4 +60,7 @@ from http://www.voxeo.com/prism/ but are not available from this repository due 
 
 -- Voicemail Application <voicemail/docs/readme.htm>
    This sample demonstrates how to write a simple voicemail application with JSR-309 API
+
+-- Moho Samples <moho>
+   Sample applications demonstrating the use of Moho - http://labs.voxeo.com/moho
 
