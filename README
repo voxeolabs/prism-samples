@@ -41,6 +41,9 @@ NOTE: Voxeo Prism is available for download from http://www.voxeo.com/prism/
 -- Simple XMPP Client Application <xmppclient/docs/readme.htm>   
    This sample application demonstrates how to implement a XMPP client using XMPP servlet technology.
 
+-- Moho Samples <moho>
+   Sample applications demonstrating the use of Moho - http://labs.voxeo.com/moho
+
 ================================================================================================
 The following sample applications are included with the Prism distribution available for download 
 from http://www.voxeo.com/prism/ but are not available from this repository due to their distribution license.
@@ -62,7 +65,4 @@ from http://www.voxeo.com/prism/ but are not available from this repository due 
 
 -- Voicemail Application <voicemail/docs/readme.htm>
    This sample demonstrates how to write a simple voicemail application with JSR-309 API
-
--- Moho Samples <moho>
-   Sample applications demonstrating the use of Moho - http://labs.voxeo.com/moho
 
