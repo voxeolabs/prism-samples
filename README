@@ -40,6 +40,10 @@ The followings are sample applications that demonstrate how to use SIP servlet t
 -- Simple XMPP Client Application <xmppclient/docs/readme.htm>   
    This sample application demonstrates how to implement a XMPP client using XMPP servlet technology.
 
+================================================================================================
+The following sample applications are included with the Prism distribution available for download 
+from http://www.voxeo.com/prism/ but are not available from this repository due to their distribution license.
+
 -- Player Application <play/docs/readme.htm> 	
    This sample demonstrates how to write a simple play application with JSR-309 API.
 
