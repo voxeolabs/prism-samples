@@ -1,7 +1,9 @@
 Voxeo Prism Sample Applications
 
-The followings are sample applications that demonstrate how to use SIP servlet technology to build converged SIP/HTTP/JSR-309/XMPP applications based on Voxeo Prism Application Server.
+The followings are sample applications that demonstrate how to use SIP servlet technology to build 
+converged SIP/HTTP/JSR-309/XMPP applications based on Voxeo Prism Application Server.
 
+NOTE: Voxeo Prism is available for download from http://www.voxeo.com/prism/
 
 --  Converged Prism Application <prism/docs/readme.htm> 	
     This sample demonstrates how to write a simple application with SIP Servlet API and JSR-309 API
