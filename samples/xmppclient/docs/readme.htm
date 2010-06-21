@@ -27,6 +27,7 @@
   a session to gtalk using account testxmppclient@gmail.com. After the session has been created(i.e logon to gtalk), the servlet will send a message to account testxmppclient2@gmail.com. So if testxmppclient@gmail.com
    is online, it will receive a message "hello, this is XMPP servlet client."  The second servlet is <a href="../xmppclient/WEB-INF/classes/com/voxeo/sipmethod/sample/xmppclient/XMPPClientReceiveBackMessageServlet.java">XMPPClientReceiveBackMessageServlet</a>, 
    it is a XMPP servlet, used to accomplish the following negotiation process after the XMPPClientHTTPServlet initiate a session to gtalk, it is also used to receive the back message and just echo it.</p>
+   <p>For more details, please see <a href="../xmppclient/WEB-INF/classes/com/voxeo/sipmethod/sample/xmppclient">source codes</a>. </p>
 </blockquote>
 <br>
 <h2>Running the Sample </h2>
@@ -52,7 +53,7 @@
   </table>
 	<p>Please follow the following steps to deploy, configure and run this sample:</p>
 	<ol>
-	<li>Copy <em>xmppclient</em> directory (or <em>xmppclient.sar</em>) into <em><a href="../../../apps">apps</a></em> directory.</li>
+	<li>Copy <em>xmppclient</em> directory (or <em>xmppclient.sar</em>) into <em>$INSTALL_DIR/apps</em> directory.</li>
 	<br>
 	<li>Start SIP servlet container (SIPMethod Application Server) as <em>user guide</em>.</li>
 	<br>

@@ -40,6 +40,7 @@
      the request to the callee. The servlet set a number of parameters control how proxying is 
      carried out.</p>
   <p>For more details, please refer to the comments in the <a href="../findme/WEB-INF/classes/com/micromethod/sipmethod/sample/findme/FindMeServlet.java">FindMeServlet.java</a>.</p>
+	<p>For more details, please see <a href="../findme/WEB-INF/classes/com/micromethod/sipmethod/sample/findme">source codes</a>. </p>
 </blockquote>
 <br>
 <h2>Running the Sample </h2>
@@ -65,12 +66,12 @@
   </table>
 	<p>Please follow the following steps to deploy, configure and run this sample:</p>
 	<ol>
-	<li>Copy <em>findme</em> directory (or <em>findme.sar</em>) into <em><a href="../../../apps">apps</a></em> directory.</li>
+	<li>Copy <em>findme</em> directory (or <em>findme.sar</em>) into <em>$INSTALL_DIR/apps</em> directory.</li>
 	<br>
-	<li>Configure a set of SIP URI as multiple callee's number in the &quot;contacts&quot; parameters for FindMeServlet in <em><a href="../../../apps/findme/WEB-INF/sip.xml">apps/findme/WEB-INF/sip.xml</a></em>. Each URI should be separated by comma.</li><br>
-	<li>Configure the &quot;findme&quot; parameter for FindMeServlet in <em><a href="../../../apps/findme/WEB-INF/sip.xml">apps/findme/WEB-INF/sip.xml</a></em>. &quot;true&quot; means searching sequentially.   </li>
+	<li>Configure a set of SIP URI as multiple callee's number in the &quot;contacts&quot; parameters for FindMeServlet in <em><a href="../findme/WEB-INF/sip.xml">apps/findme/WEB-INF/sip.xml</a></em>. Each URI should be separated by comma.</li><br>
+	<li>Configure the &quot;findme&quot; parameter for FindMeServlet in <em><a href="../findme/WEB-INF/sip.xml">apps/findme/WEB-INF/sip.xml</a></em>. &quot;true&quot; means searching sequentially.   </li>
 	<br>
-	<li>Make the Caller User Agent to call Callee User Agent at the server. You should configure the domain of the callee account with findme.sample.prism.voxeo.com.</li>
+	<li>Make the Caller User Agent to call Callee User Agent at the server. You should configure the user name of the callee account with findme.</li>
 	<br>
 	</ol>
 </blockquote><br>

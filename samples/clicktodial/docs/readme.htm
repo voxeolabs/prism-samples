@@ -36,6 +36,7 @@
   and send to targets respectively. For each OK repsonse from the UA, the SIP servlet creates ACK message 
   and copy SDP content base to the OK repsonse from other UA. RTP sessions be established between participants thereafter.</p>
   <p>A user can also input two URIs via the Web Service client to trigger the Service Endpoint on the server to call and connect these two URIs. </p>
+	<p>For more details, please see <a href="../clicktodial/WEB-INF/classes/com/micromethod/sipmethod/sample/clicktodial">source codes</a>. </p>
 </blockquote>
 <br>
 <h2>Running the Sample </h2>
@@ -65,12 +66,12 @@
   </table>
 	<p>Please follow the following steps to deploy, configure and run this sample:</p>
 	<ol>
-	<li>Copy <em>clicktodial</em> directory (or <em>clicktodial.sar</em>) into <em><a href="../../../apps">apps</a></em> directory.</li>
+	<li>Copy <em>clicktodial</em> directory (or <em>clicktodial.sar</em>) into <em>$INSTALL_DIR/apps</em> directory.</li>
 	<br>
 	<li>Configure the servlet-mapping, URL-mapping and web-service for Click-to-Dial server in
-     <em><a href="../../../apps/clicktodial/WEB-INF/sip.xml">apps/clicktodial/WEB-INF/sip.xml</a></em>,
-     <em><a href="../../../apps/clicktodial/WEB-INF/web.xml">apps/clicktodial/WEB-INF/web.xml</a></em> and
-     <em><a href="../../../apps/clicktodial/WEB-INF/soap.xml">apps/clicktodial/WEB-INF/soap.xml</a></em>
+     <em><a href="../clicktodial/WEB-INF/sip.xml">apps/clicktodial/WEB-INF/sip.xml</a></em>,
+     <em><a href="../clicktodial/WEB-INF/web.xml">apps/clicktodial/WEB-INF/web.xml</a></em> and
+     <em><a href="../clicktodial/WEB-INF/soap.xml">apps/clicktodial/WEB-INF/soap.xml</a></em>
   </li>
 	<br>
 	<li>Configure XLite and register to this application, You should configure the domain of the client account as clicktodial.sample.prism.voxeo.com.</li><br>

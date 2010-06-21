@@ -18,7 +18,7 @@
 <h2>Overview</h2>
 <blockquote>
 <p>This sample demonstrates how to use JSR309 API to make a simple prism application in a SIP servlet.</p>
-  <p>The SIPServlet - PrismServlet - can handle SIP REGISTER, INVITE, MESSAGE, BYE request. During processing of these SIP requests, the servlet use JSR309 
+  <p>The SIPServlet - <a href="../prism/WEB-INF/classes/com/voxeo/prism/sample/PrismServlet.java">PrismServlet</a> - can handle SIP REGISTER, INVITE, MESSAGE, BYE request. During processing of these SIP requests, the servlet use JSR309 
   API to negotiate a session with media server and also implement TTS, ASR, recording functions.</p>
 
 </blockquote><br>
@@ -45,8 +45,8 @@
     
   <ol>
     <li> 
-      <p>Prism application is installed under <em><a href="../../../apps">apps</a></em> by default. 
-      You can re-install it by copy <em>prism</em> directory (or <em>prism.sar</em>) into <em><a href="../../../apps">apps</a></em> 
+      <p>Prism application is installed under <em>$INSTALL_DIR/apps</em> by default. 
+      You can re-install it by copy <em>prism</em> directory (or <em>prism.sar</em>) into <em>$INSTALL_DIR/apps</em> 
         directory. Start Prism Server if you haven't. </p>
     </li>
     <li>Startup and Configure your X-Lite (or other compatible SIP Clients). 
@@ -83,10 +83,10 @@
         <p align="left"><img src="images/addcontact.png" alt="sign-in"/></p>
         <br>
         <li>On the &quot;Add Contact&quot; tab, select &quot;Softphone&quot; as 
-          the Type,type the name: <strong>echo</strong>, and then click OK.</li>
+          the Type,type the name: <strong>prism</strong>, and then click OK.</li>
         <p align="left"><img src="images/addecho.png" alt="other"/></p>
         <br>
-        <li>Right click on the &quot;echo&quot; ,and select &quot;Call&quot;. 
+        <li>Right click on the &quot;prism&quot; ,and select &quot;Call&quot;. 
         </li>
         <p align="left"><img src="images/call.png" alt="dialog"/></p>
         <br>

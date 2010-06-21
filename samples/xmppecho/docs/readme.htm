@@ -17,7 +17,7 @@
 <!----------------- Beginning of the Content ---------------------->
 <h2>Overview</h2>
 <blockquote>
-  <p>The XMPP servlet - EchoServlet - demonstrates how a simple XMPP IM server
+  <p>The XMPP servlet - <a href="../xmppecho/WEB-INF/classes/com/voxeo/sipmethod/sample/xmppecho/EchoServlet.java">EchoServlet</a> - demonstrates how a simple XMPP IM server
     handles XMPP client logon, client messages, XMPP s2s communication, and s2s messages. It maintains a list of 
     accounts, user agent clients (e.g. Spark) can logon to this IM server using these accounts. after logon, you can see a user named 
     echo in your buddies list, this user will echo each chat message the 
@@ -28,6 +28,7 @@
     will communicate with this IM server. The result is that you success to add the XMPP account, the account shows online and it will echo each chat message 
     you send to it.
      </p>
+     <p>For more details, please see <a href="../xmppecho/WEB-INF/classes/com/voxeo/sipmethod/sample/xmppecho">source codes</a>. </p>
   
 </blockquote><br>
 <h2>Understanding the Sample </h2>
@@ -68,7 +69,7 @@
 	<p>Please follow the following steps to deploy, configure and run this sample:</p>
 	
 	 <li> 
-      <p>Copy <em>xmppecho</em> directory (or <em>xmppecho.sar</em>) into <em><a href="../../../apps">apps</a></em> 
+      <p>Copy <em>xmppecho</em> directory (or <em>xmppecho.sar</em>) into <em>$INSTALL_DIR/apps</em> 
         directory. Modify xmpp.xml at xmppecho/WEB-INF, replace the value in element xmpp:servdomain with the domain you are using. 
         or just leave it if you are not going to run the s2s communication function.
          Start SIPMethod Application Server if you haven't. </p>

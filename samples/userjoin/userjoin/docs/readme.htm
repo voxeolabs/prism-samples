@@ -28,7 +28,9 @@
   
   <p>For each initial INVITE request from the caller, the servlet  relay 
      the request to the callee. </p>
-  <p>For more details, please refer to the comments in the <a href="../userjoin/WEB-INF/classes/com/micromethod/sipmethod/sample/userjoin/UserJoinServlet.java">UserJoinServlet.java</a>.</p>
+  <p>For more details, please see <a
+  href="../userjoin/WEB-INF/classes/com/micromethod/sipmethod/sample/userjoin">source
+codes</a>.</p>
 </blockquote>
 <br>
 <h2>Running the Sample </h2>
@@ -54,11 +56,11 @@
   </table>
 	<p>Please follow the following steps to deploy, configure and run this sample:</p>
 	<ol>
-	<li>Copy <em>userjoin</em> directory (or <em>userjoin.sar</em>) into <em><a href="../../../apps">apps</a></em> directory.
+	<li>Copy <em>userjoin</em> directory (or <em>userjoin.sar</em>) into <em>$INSTALL_DIR/apps</em> directory.
 	Start SIPMethod Application Server if you haven't.</li>
 	
 	<br>
-	 <li>Startup and Configure your X-Lite (or other compatible SIP Clients). But make sure that you are using a conference enabled client(X-Lite is not conference function enabled,but Bria is) for the Bob account, Because Bob need make a conference with Alice and Carol.
+	 <li>Startup and Configure your X-Lite (or other compatible SIP Clients). But make sure that you are using a conference enabled client(X-Lite is not conference function enabled,but Bria is) for the userjoin account, Because userjoin need make a conference with Alice and Carol.
       <p> 
       <ul>
         <li>1 Open X-Lite 3.0 or later.</li>
@@ -72,9 +74,9 @@
         <p align="left"><img src="images/aliceAccount.png" alt="advanced"/></p>
         <li>5 Then click <em>OK</em>.</li>
         <br>       
-        <li>  You need configure the other two accounts , Bob and Carol, on other two computers for this sample. 
-        Repeat the forgoing 1-5 steps twice except that type the user name as Bob and Carol separately  in step 4.
-        Here we use Bria client for the Bob account for the conference function.</li>
+        <li>  You need configure the other two accounts , userjoin and Carol, on other two computers for this sample. 
+        Repeat the forgoing 1-5 steps twice except that type the user name as userjoin and Carol separately  in step 4.
+        Here we use Bria client for the userjoin account for the conference function.</li>
         <br>
       </ul>
       </p>
@@ -92,7 +94,7 @@
       </ul></p>
     </li>
     
-   <li>Make a call from Alice to Bob. 
+   <li>Make a call from Alice to userjoin. 
       <p> 
       <ul>
         <li>Click the right arrow and right click on the Group List,select &quot;Add 
@@ -100,27 +102,27 @@
         <p align="left"><img src="images/addcontact.png" alt="sign-in"/></p>
         <br>
         <li>On the &quot;Add Contact&quot; tab, select &quot;Softphone&quot; as 
-          the Type,type the name: <strong>Bob</strong>, and then click OK.</li>
+          the Type,type the name: <strong>userjoin</strong>, and then click OK.</li>
         <p align="left"><img src="images/addContactInfo.png" alt="other"/></p>
         <br>
-        <li>Right click on the &quot;Bob&quot; ,and select &quot;Call&quot;. 
+        <li>Right click on the &quot;userjoin&quot; ,and select &quot;Call&quot;. 
         </li>
         <p align="left"><img src="images/makeCall.png" alt="dialog"/></p>
         <br>
         <br>
-        <li>A call is initialized from Alice to Bob, Bob accepts the call by clicking on the Answer button on the pop up dialog.</li>
+        <li>A call is initialized from Alice to userjoin, userjoin accepts the call by clicking on the Answer button on the pop up dialog.</li>
         
         <br>
       </ul></p>
       </li>
 	<br>
 	
-	<li>Make a call from Carol to Bob, and Bob add Alice and Carol to the same conference. 
+	<li>Make a call from Carol to userjoin, and userjoin add Alice and Carol to the same conference. 
       <p> 
       <ul>
         <li>Make a call from Carol as the forgoing steps show.</li>
         <br>
-        <li>When Bob receives a call request from Carol, he clicks the "Conference All" button as the following diagram shows instead of clicking the answer button on the pop up dialog.</li>
+        <li>When userjoin receives a call request from Carol, he clicks the "Conference All" button as the following diagram shows instead of clicking the answer button on the pop up dialog.</li>
         <p align="left"><img src="images/acceptCarol.png" alt="other"/></p>
         
         <li>By now we established a 3-way Conference.</li>

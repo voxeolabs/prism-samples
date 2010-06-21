@@ -47,8 +47,8 @@
 							<value>INVITE</value>
 						</equal>
 						<equal ignore-case="false">
-							<var>request.to.uri.host</var>
-							<value>vxml.sample.prism.voxeo.com</value>
+							<var>request.to.uri.user</var>
+							<value>vxml</value>
 						</equal>
 					</and>
 			</pattern>

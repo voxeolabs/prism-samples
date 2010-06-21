@@ -34,12 +34,12 @@
    <li>Type 'applications' to list all applications that the server has.</li>
    <li>Type 'state' to get the server's state.</li>
   </ul>
-<p>The following code snippet shows how to access <a href="../../../docs/api/com/micromethod/sipmethod/server/container/ContainerMBean.html">ContainerMBean</a> within the servlet.</p>
+<p>The following code snippet shows how to access <a href="../../../guides/api/com/micromethod/sipmethod/server/container/ContainerMBean.html">ContainerMBean</a> within the servlet.</p>
 <blockquote>
   @Resource(name = ModuleConstants.SNAME_CONTAINER)<br>
   protected ContainerMBean _container;
 </blockquote>
-<p>The following code snippet shows how to access <a href="../../../docs/api/com/micromethod/sipmethod/server/container/SIPMethodSipSessionsUtil.html">SIPMethodSipSessionsUtil</a> within the servlet.</p>
+<p>The following code snippet shows how to access <a href="../../../guides/api/com/micromethod/sipmethod/server/container/SIPMethodSipSessionsUtil.html">SIPMethodSipSessionsUtil</a> within the servlet.</p>
 <blockquote>
    protected SIPMethodSipSessionsUtil _sipSessionsUtil = null;<br>
   _sipSessionsUtil = (SIPMethodSipSessionsUtil) getServletContext().getAttribute(SIP_SESSIONS_UTIL);<br>
@@ -53,7 +53,7 @@
     
   <ol>
     <li> 
-      <p>Copy <em>extension</em> directory (or <em>extension.sar</em>) into <em><a href="../../../apps">apps</a></em> 
+      <p>Copy <em>extension</em> directory (or <em>extension.sar</em>) into <em>$INSTALL_DIR/apps</em> 
         directory. Start SIPMethod Application Server if you haven't. </p>
     </li>
     <li>Startup and Configure your X-Lite (or other compatible SIP Clients). 

@@ -58,8 +58,8 @@
 							<value>INVITE</value>
 						</equal>
 						<equal ignore-case="false">
-							<var>request.to.uri.host</var>
-							<value>b2bua.sample.prism.voxeo.com</value>
+							<var>request.to.uri.user</var>
+							<value>b2bua</value>
 						</equal>
 					</and>
 			</pattern>

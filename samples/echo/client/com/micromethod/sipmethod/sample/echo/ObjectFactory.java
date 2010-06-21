@@ -38,11 +38,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link RemoveRegister }
+     * Create an instance of {@link RemoveRegisterResponse }
      * 
      */
-    public RemoveRegister createRemoveRegister() {
-        return new RemoveRegister();
+    public RemoveRegisterResponse createRemoveRegisterResponse() {
+        return new RemoveRegisterResponse();
     }
 
     /**
@@ -62,11 +62,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetRegisteredAddresses }
+     * Create an instance of {@link RemoveRegister }
      * 
      */
-    public GetRegisteredAddresses createGetRegisteredAddresses() {
-        return new GetRegisteredAddresses();
+    public RemoveRegister createRemoveRegister() {
+        return new RemoveRegister();
+    }
+
+    /**
+     * Create an instance of {@link MapWrapper }
+     * 
+     */
+    public MapWrapper createMapWrapper() {
+        return new MapWrapper();
     }
 
     /**
@@ -78,19 +86,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link RemoveRegisterResponse }
+     * Create an instance of {@link GetRegisteredAddresses }
      * 
      */
-    public RemoveRegisterResponse createRemoveRegisterResponse() {
-        return new RemoveRegisterResponse();
-    }
-
-    /**
-     * Create an instance of {@link MapWrapper }
-     * 
-     */
-    public MapWrapper createMapWrapper() {
-        return new MapWrapper();
+    public GetRegisteredAddresses createGetRegisteredAddresses() {
+        return new GetRegisteredAddresses();
     }
 
     /**

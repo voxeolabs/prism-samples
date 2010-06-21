@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sip-app>
 
-  <app-name>Prism</app-name>
+  <app-name>com.voxeo.prism.sample.PrismSample</app-name>
   <display-name>Prism Sample</display-name>
   <servlet>
     <servlet-name>PrismSample</servlet-name>
@@ -20,12 +20,10 @@
               <var>request.method</var>
               <value>REGISTER</value>
             </equal>
-            <not>
-              <subdomain-of ignore-case="false">
-                <var>request.from.uri.host</var>
-                <value>sample.prism.voxeo.com</value>
-              </subdomain-of>
-            </not>
+            <equal ignore-case="false">
+              <var>request.from.uri.host</var>
+              <value>prism.sample.prism.voxeo.com</value>
+            </equal>
           </and>
           <and>
             <or>
@@ -42,20 +40,10 @@
                 <value>SUBSCRIBE</value>
               </equal>
             </or>
-
-            <not>
-              <subdomain-of ignore-case="false">
-                <var>request.from.uri.host</var>
-                <value>sample.prism.voxeo.com</value>
-              </subdomain-of>
-            </not>
-            <not>
-              <subdomain-of ignore-case="false">
-                <var>request.to.uri.host</var>
-                <value>sample.prism.voxeo.com</value>
-              </subdomain-of>
-            </not>
-
+            <equal ignore-case="false">
+              <var>request.to.uri.user</var>
+              <value>prism</value>
+            </equal>
           </and>
         </or>
       </pattern>

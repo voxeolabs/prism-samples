@@ -31,7 +31,8 @@
   <p>For more details, please refer to the comments in the  <a href="../b2bua/WEB-INF/classes/com/micromethod/sipmethod/sample/b2bua/B2BUA.java">B2BUA.java</a>.</p>
   <p><a href="../b2bua/WEB-INF/classes/com/micromethod/sipmethod/sample/b2bua/B2BUAByB2buaHelper.java">B2BUAByB2buaHelper.java</a> is another implementation ,which provides the same functionality as <a href="../b2bua/WEB-INF/classes/com/micromethod/sipmethod/sample/b2bua/B2BUA.java">B2BUA.java</a>. However, it leverages B2buaHelper of JSR289 API. Thus its code is much simpler. </p>
   <p>For more details, please refer to the comments in the  <a href="../b2bua/WEB-INF/classes/com/micromethod/sipmethod/sample/b2bua/B2BUAByB2buaHelper.java">B2BUAByB2buaHelper.java</a>.</p>  
-  <p>This sample also demonstrates how to send a authorization header in SIP servlet using SipServletRequest.addAuthHeader(SipServletResponse challengeResponse, String username, String password). It creates &quot;Authorization&quot; header based on a &quot;WWW-Authorization&quot; header in either 401 or 407 response. 
+  <p>This sample also demonstrates how to send a authorization header in SIP servlet using SipServletRequest.addAuthHeader(SipServletResponse challengeResponse, String username, String password). It creates &quot;Authorization&quot; header based on a &quot;WWW-Authorization&quot; header in either 401 or 407 response.
+	<p>For more details, please see <a href="../b2bua/WEB-INF/classes/com/micromethod/sipmethod/sample/b2bua">source codes</a>. </p> 
 </blockquote>
 <br>
 <h2>Running the Sample </h2>
@@ -56,11 +57,11 @@
   </table>
 	<p>Please follow the following steps to deploy, configure and run this sample:</p>
 	<ol>
-	<li>Copy <em>b2bua</em> directory (or <em>b2bua.sar</em>) into <em><a href="../../../apps">apps</a></em> directory.</li>
+	<li>Copy <em>b2bua</em> directory (or <em>b2bua.sar</em>) into <em>$INSTALL_DIR/apps</em> directory.</li>
 	<br>
-	<li>Configure the initialization parameters for B2BUA server in <em><a href="../../../apps/b2bua/WEB-INF/sip.xml">apps/b2bua/WEB-INF/sip.xml</a></em>. The initialization parameters should match Callee's IP, port and transport.</li>
+	<li>Configure the initialization parameters for B2BUA server in <em><a href="../b2bua/WEB-INF/sip.xml">apps/b2bua/WEB-INF/sip.xml</a></em>. The initialization parameters should match Callee's IP, port and transport.</li>
 	<br>
-	<li>Make the Caller User Agent to call Callee User Agent at B2BUA. You should configure the domain of the callee account with b2bua.sample.prism.voxeo.com.</li>
+	<li>Make the Caller User Agent to call Callee User Agent at B2BUA. You should configure the user name of the callee account with b2bua.</li>
 	<br>
 	</ol>
 </blockquote><br>

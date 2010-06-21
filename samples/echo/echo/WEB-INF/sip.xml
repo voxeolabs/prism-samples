@@ -43,8 +43,8 @@
 							<value>echo.sample.prism.voxeo.com</value>
 						</equal>
             <equal ignore-case="false">
-              <var>request.to.uri.host</var>
-              <value>echo.sample.prism.voxeo.com</value>
+              <var>request.to.uri.user</var>
+              <value>echo</value>
             </equal>
 					</and>
 				</or>
