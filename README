@@ -20,7 +20,7 @@ A free trial version is available for Microsoft Windows, Linux and Mac OS X.
 The followings are sample applications that demonstrate how to use SIP servlet technology to build 
 converged SIP/HTTP/JSR-309/XMPP applications based on Voxeo PRISM Application Server.
 
---  Converged PRISM Application <prism/docs/readme.htm> 	
+--  Converged PRISM Application <PrismDemoApp/docs/readme.htm> 	
     This sample demonstrates how to write a simple application with SIP Servlet API and JSR-309 API
 
 -- Converged User Agent Server <echo/docs/readme.htm> 	
