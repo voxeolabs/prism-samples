@@ -2,12 +2,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>SIPMethod API Sample</title>
+<title>Prism API Sample</title>
 </head>
 <body style="font-family: Tahoma; font-size:10pt">
 <table width="100%" border="0" cellspacing="10">
   <tr>
-    <td colspan="3" align="center"><H2> SIPMethod API Sample </H2></td>
+    <td colspan="3" align="center"><H2> Prism API Sample </H2></td>
   </tr>
   <tr>
     <td colspan="3"><hr>
@@ -17,12 +17,12 @@
 <!----------------- Beginning of the Content ---------------------->
 <h2>Overview</h2>
 <blockquote>
-  <p>This sample demonstrates how to use SIPMethod APIs to access server information.</p>
+  <p>This sample demonstrates how to use Prism APIs to access server information.</p>
 </blockquote>
 <br>
 <h2>Understanding the Sample</h2>
 <blockquote>
-  <p>ExtensionServlet handles SIP REGISTER, INVITE, BYE, MESSAGE and INFO messages.It uses SIPMethod API to get server information and respond to the client.</p>
+  <p>ExtensionServlet handles SIP REGISTER, INVITE, BYE, MESSAGE and INFO messages.It uses Prism API to get server information and respond to the client.</p>
   
   <p>When the ExtensionServlet receives SIP MESSAGE message, it accepts the message 
     with 200 OK response. With X-Lite, user can get server information by typing commands in the instant message.
@@ -34,12 +34,12 @@
    <li>Type 'applications' to list all applications that the server has.</li>
    <li>Type 'state' to get the server's state.</li>
   </ul>
-<p>The following code snippet shows how to access <a href="../../../guides/api/com/micromethod/sipmethod/server/container/ContainerMBean.html">ContainerMBean</a> within the servlet.</p>
+<p>The following code snippet shows how to access <a href="../../../docs/api/com/micromethod/sipmethod/server/container/ContainerMBean.html">ContainerMBean</a> within the servlet.</p>
 <blockquote>
   @Resource(name = ModuleConstants.SNAME_CONTAINER)<br>
   protected ContainerMBean _container;
 </blockquote>
-<p>The following code snippet shows how to access <a href="../../../guides/api/com/micromethod/sipmethod/server/container/SIPMethodSipSessionsUtil.html">SIPMethodSipSessionsUtil</a> within the servlet.</p>
+<p>The following code snippet shows how to access <a href="../../../docs/api/com/micromethod/sipmethod/server/container/SIPMethodSipSessionsUtil.html">SIPMethodSipSessionsUtil</a> within the servlet.</p>
 <blockquote>
    protected SIPMethodSipSessionsUtil _sipSessionsUtil = null;<br>
   _sipSessionsUtil = (SIPMethodSipSessionsUtil) getServletContext().getAttribute(SIP_SESSIONS_UTIL);<br>
@@ -54,7 +54,7 @@
   <ol>
     <li> 
       <p>Copy <em>extension</em> directory (or <em>extension.sar</em>) into <em>$INSTALL_DIR/apps</em> 
-        directory. Start SIPMethod Application Server if you haven't. </p>
+        directory. Start Prism Application Server if you haven't. </p>
     </li>
     <li>Startup and Configure your X-Lite (or other compatible SIP Clients). 
       <p> 
@@ -66,7 +66,7 @@
         <li>On the <em>SIP Accounts</em> panel, click <em>Add...</em>. </li>
         <p align="left"><img src="./images/addacount.png" /></p>
         <br>
-        <li>Type the User Details and Domain Proxy as follow. You can replace the Proxy IP address with the IP where SIPMethod is running.</li>
+        <li>Type the User Details and Domain Proxy as follow. You can replace the Proxy IP address with the IP where Prism is running.</li>
         <p align="left"><img src="./images/account.png" alt="advanced"/></p>
         <li> Then click <em>OK</em>.</li>
         <br>

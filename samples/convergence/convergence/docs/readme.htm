@@ -26,7 +26,9 @@ demonstrates how SIP, HTTP and XMPP servlets can work together.</p>
 client, SIP, HTTP and XMPP, and enable them to communicate with each
 other. So you can send message from SIP client to XMPP client, and
 receive message from XMPP client, and the same hold true for HTTP
-client.</p>
+client. </p>This sample depends on the registrar sample to get register
+information of SIP client. so you have to deploy the registrar sample at
+the same time if you want run this sample.</p>
 
 </blockquote>
 <br>
@@ -41,16 +43,16 @@ and the XMPP servlet <a
 they share the same servlet context and serve three types of protocol,
 SIP, HTTP and XMPP separately.</p>
 
-<p>The SIP servlet handles SIP REGISTER, INVITE, BYE and MESSAGE
-messages. For REGISTER message, the servlet maintains a mapping between
-the client's address-of-record and contact address so it can send back
-message to the client later. The mappings are stored in the servlet
-context. After registration, the SIP client can send messages. On
-receiving these messages, the SIP servlet will check the receiver of the
-message, if the receiver is one of the XMPP account that has logon to
-this application(the servlet get XMPP clients info from the servlet
-context that the XMPP servlet stored.), the SIP servlet will transfer
-this message to that XMPP client by using the XMPP servlet API.</p>
+<p>The SIP servlet handles INVITE, BYE and MESSAGE messages. The
+servlet query register information from registrar sample to get a
+mapping between the client's address-of-record and contact address so it
+can send back message to the client later. After registration, the SIP
+client can send messages. On receiving these messages, the SIP servlet
+will check the receiver of the message, if the receiver is one of the
+XMPP account that has logon to this application(the servlet get XMPP
+clients info from the servlet context that the XMPP servlet stored.),
+the SIP servlet will transfer this message to that XMPP client by using
+the XMPP servlet API.</p>
 
 <p>The XMPPservlet, SimpleImServerXmppServlet, is a simple XMPP IM
 server, it can handles XMPP client logon, client messages, XMPP s2s
@@ -103,14 +105,15 @@ codes</a>.</p>
 </table>
 <p>Please follow the following steps to deploy, configure and run
 this sample:</p>
+<li>This sample depends on registrar sample to get register information of SIP client. Depoly registrar sample first. Copy <em>registrar</em> directory (or <em>registrar.sar</em>) into <em>$INSTALL_DIR/apps</em> directory if you have not. </li>
 
 <li>
 <p>Copy <em>convergence</em> directory (or <em>convergence.sar</em>)
-into <em>$INSTALL_DIR/apps</em> directory. Modify
-xmpp.xml at convergence/WEB-INF, replace the value in element
-xmpp:servdomain with the domain you are using. or just leave it if you
-are not going to run the s2s communication function. Start SIPMethod
-Application Server if you haven't.</p>
+into <em>$INSTALL_DIR/apps</em> directory. Modify xmpp.xml at
+convergence/WEB-INF, replace the value in element xmpp:servdomain with
+the domain you are using. or just leave it if you are not going to run
+the s2s communication function. Start Prism Application Server if
+you haven't.</p>
 </li>
 <li>Startup and Configure your Spark (or other compatible XMPP
 Clients).
@@ -118,15 +121,15 @@ Clients).
 <ul>
 	<li>Open Spark 2.5.8.</li>
 	<br>
-	<li>On the display board, configure using these info,
-	Username: convergence, Password:1, Server: the domain you configured in the
+	<li>On the display board, configure using these info, Username:
+	convergence, Password:1, Server: the domain you configured in the
 	previous step.</li>
 	<p align="left"><img src="images/mainpanel.png" alt="x-lite" /></p>
 	<br>
 	<li>If you are not using a real domain name(i.e. you are not using
 	a registered domain, that also means you can't run the s2s
 	communication function), you have to configure the IP info of the
-	machine that SIPMethod is running on, because Spark can't get the IP
+	machine that Prism is running on, because Spark can't get the IP
 	info from DNS with the domain you have configured. Click the <em>Advanced</em>
 	button. configure Host with the server IP address. Then click OK
 	button.</li>
@@ -138,12 +141,13 @@ Clients).
 <ul>
 	<li>click the login button on the main panel of Spark. The result
 	is as following. You can see that there are some buddy in the list. In
-	the online group, the echo@xmpp.im.voxeo.com user act as the xmppecho
-	sample describes, and the convergence@xmpp.im.voxeo.com is yourself(you can
-	also chat with yourself, obviously you will receive the same message
-	you send to it, just like the echo user.) . The
-	httpuserg@convergence.sample.prism.voxeo.com and sipuserf@convergence.sample.prism.voxeo.com is offline
-	now, because you haven't log on with SIP client and HTTP client now.</li>
+	the online group, the echo@convergence.sample.prism.voxeo.com user act as the xmppecho
+	sample describes, and the convergence@convergence.sample.prism.voxeo.com is yourself(you
+	can also chat with yourself, obviously you will receive the same
+	message you send to it, just like the echo user.) . The
+	httpuserg@convergence.sample.prism.voxeo.com and
+	sipuserf@convergence.sample.prism.voxeo.com is offline now, because you
+	haven't log on with SIP client and HTTP client now.</li>
 	<p align="left"><img src="images/convergenceLogon.png"
 		alt="messenger" /></p>
 </ul>
@@ -169,16 +173,17 @@ Clients).
 	<br>
 </ul>
 </li>
-<li>Register your X-Lite to "Echo Servlet" application.
+<li>Register your X-Lite to "Convergence" application.
 <p>
 <ul>
-	<li>Start SIP servlet container (SIPMethod Application Server) as
+	<li>Start SIP servlet container (Prism Application Server) as
 	<em>user guide</em>.</li>
 	<li>Start X-Lite,and it will register to the container.</li>
 	<p align="left"><img src="images/sipclient/ready.png"
 		alt="messenger" /></p>
-	<li>Now you can see that the sipuserf@convergence.sample.prism.voxeo.com shows
-	online on the XMPP client.</li>
+	<li>Now you can see that the
+	sipuserf@convergence.sample.prism.voxeo.com shows online on the XMPP
+	client.</li>
 	<p align="left"><img src="images/sipuseronline.png" alt="messenger" /></p>
 	<br>
 </ul>
@@ -198,7 +203,7 @@ Clients).
 	<p align="left"><img src="images/sipclient/adduserc.png"
 		alt="other" /></p>
 	<br>
-	<li>Right click on the &quot;echo&quot; ,and select &quot;Instant
+	<li>Right click on the &quot;convergence&quot; ,and select &quot;Instant
 	Message&quot;.</li>
 	<p align="left"><img src="images/sipclient/instant.png"
 		alt="dialog" /></p>
@@ -221,11 +226,12 @@ Clients).
 	<li>Access the URL <a
 		href="http://localhost:8080/convergence/ExposeURL">http://localhost:8080/convergence/ExposeURL</a>,
 	you will see a response page that says "Sent message to:
-	convergence@convergence.sample.prism.voxeo.com ". The account XMPP client
-	convergence@convergence.sample.prism.voxeo.com will see that httpuserg@convergence.sample.prism.voxeo.com is
-	online and receive a message "hello, this is XMPP servlet client.".
-	When you talk with it, it will just echo your message. This is because
-	the SimpleImServerXmppServlet implementation just echo message received
+	convergence@convergence.sample.prism.voxeo.com ". The account XMPP
+	client convergence@convergence.sample.prism.voxeo.com will see that
+	httpuserg@convergence.sample.prism.voxeo.com is online and receive a
+	message "hello, this is from http.". When you talk with it,
+	it will just echo your message. This is because the
+	SimpleImServerXmppServlet implementation just echo message received
 	from HTTP side. Surely you can parse and post this message to a HTTP
 	server in the SimpleImServerXmppServlet, then get the respons emessage
 	from HTTP response and send back to the XMPP client.</li>

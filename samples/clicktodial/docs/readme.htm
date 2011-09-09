@@ -17,7 +17,8 @@
 <!----------------- Beginning of the Content ---------------------->
 <h2>Overview</h2>
 <blockquote>
-  <p>This sample application demonstrates how to implement a web-based click-to-dial with a converged HTTP/SIP application.</p>
+  <p>This sample application demonstrates how to implement a web-based click-to-dial with a converged HTTP/SIP application. </p>This sample depends on the registrar sample to get register information of SIP client.
+  so you have to deploy the registrar sample at the same time if you want run this sample.</p>
   <p>Click-to-Dial establishes a call between participants using web 
   interface or web services. It simplifies dialing in that callers do not have to dial lengthy addresses and 
   they keep their phonebooks separately from SIP phones. </p>
@@ -66,17 +67,13 @@
   </table>
 	<p>Please follow the following steps to deploy, configure and run this sample:</p>
 	<ol>
+	<li>This sample depends on registrar sample to get register information of SIP client. Deploy registrar sample first. Copy <em>registrar</em> directory (or <em>registrar.sar</em>) into <em>$INSTALL_DIR/apps</em> directory if you have not. </li>
+  <br>
 	<li>Copy <em>clicktodial</em> directory (or <em>clicktodial.sar</em>) into <em>$INSTALL_DIR/apps</em> directory.</li>
 	<br>
-	<li>Configure the servlet-mapping, URL-mapping and web-service for Click-to-Dial server in
-     <em><a href="../clicktodial/WEB-INF/sip.xml">apps/clicktodial/WEB-INF/sip.xml</a></em>,
-     <em><a href="../clicktodial/WEB-INF/web.xml">apps/clicktodial/WEB-INF/web.xml</a></em> and
-     <em><a href="../clicktodial/WEB-INF/soap.xml">apps/clicktodial/WEB-INF/soap.xml</a></em>
-  </li>
-	<br>
-	<li>Configure XLite and register to this application, You should configure the domain of the client account as clicktodial.sample.prism.voxeo.com.</li><br>
-	<li>Please make sure the composition option is disable, WebConsole -&gt; SIP -&gt; CompositionLevel -&gt; disable.</li><br>
-	<li><a href="http://127.0.0.1:8080/clicktodial/WebAction">Browsing the web interface and make call.</a></li><br>
+	<li>Configure two XLite client and register to registrar sample, You can configure X-Lite with any account you like.</li><br>
+	<li>Please make sure the composition option is disable, WebConsole -&gt; Application Server -&gt; SIP Servlet Container -&gt; Composition -&gt; disable.</li><br>
+	<li>Browse the web interface at http://&lt;ip&gt;:8080/clicktodial/WebAction and make call.</a></li><br>
 	<li>Running <a href="../client">testclient</a> script to make call by web service. 
 	<p>For example:>testclient "sip:user1@clicktodial.sample.prism.voxeo.com" "sip:user2@clicktodial.sample.prism.voxeo.com"</p>
 	</li>

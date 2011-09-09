@@ -1,0 +1,33 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+	<TITLE>Voicemail sample application</TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 2.1  (Linux)">
+	<META NAME="CREATED" CONTENT="20070522;12302300">
+	<META NAME="CHANGEDBY" CONTENT="Alain Comment">
+	<META NAME="CHANGED" CONTENT="20070601;14053000">
+</HEAD>
+<BODY LANG="en-US" BGCOLOR="#ffffff" DIR="LTR">
+<P>This package contains a simple voicemail application.</P>
+<P>The starting point is <A HREF="./VoiceMailServlet.java"><B>VoiceMailServlet.java</B></A>
+, which is the SIP Servlet interfacing.<BR>Based on the caller's
+identity, one version of the dialog is selected:</P>
+<UL>
+	<LI><P><A HREF="./CoreMailSession.java"><B>CoreMailSession.java</B></A>
+	is a simple user-interaction dialog, using DTMF patterns and
+	messages defined by core objects.<BR>The callers are required to
+	enter a PIN code, and can leave messages, or read messages that were
+	deposited previously.<BR>CoreMailbox.java and CoreMailboxMgr.java
+	are ancillary classes, not JSR309-related.</P>
+	<LI><P><A HREF="./VxmlMailSession.java"><B>VxmlMailSession.java</B></A>
+	shows how to launch a vxml interpreter to handle the
+	user-interaction. The vxml script is<BR>fetched on an http server;
+	the script itself is not included, and so the service is not further
+	described.</P>
+</UL>
+<P>The remaing file, <A HREF="./VoiceMailSession.java">VoiceMailSession.java</A>,
+is a common part to the two previous ones. It contains the
+management<BR>of the NetworkConnection, which is same in both cases.</P>
+</BODY>
+</HTML>

@@ -2,22 +2,26 @@ package com.voxeo.sipmethod.sample.convergence;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Map;
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
+import org.w3c.dom.DOMException;
+import org.w3c.dom.Element;
 
-import com.voxeo.servlet.xmpp.JID;
+import com.voxeo.servlet.xmpp.InstantMessage;
+import com.voxeo.servlet.xmpp.PresenceMessage;
 import com.voxeo.servlet.xmpp.XmppFactory;
 import com.voxeo.servlet.xmpp.XmppServlet;
-import com.voxeo.servlet.xmpp.XmppServletStanzaRequest;
+import com.voxeo.servlet.xmpp.XmppServletMessage;
 import com.voxeo.servlet.xmpp.XmppSession;
+import com.voxeo.servlet.xmpp.XmppSessionsUtil;
 
 /**
  * This servlet demonstrate how to send XMPP messages to xmpp client in a HTTP
@@ -31,6 +35,8 @@ public class ExposeURLServlet extends HttpServlet {
 
   private XmppFactory _xmppFactory;
 
+  private XmppSessionsUtil _xmppSessionUtil;
+
   public static String HTTP_USER = "httpuserg@convergence.sample.prism.voxeo.com";
 
   @Override
@@ -39,6 +45,7 @@ public class ExposeURLServlet extends HttpServlet {
 
     // Get a reference to the XMPPFactory.
     _xmppFactory = (XmppFactory) getServletContext().getAttribute(XmppServlet.XMPP_FACTORY);
+    _xmppSessionUtil = (XmppSessionsUtil) getServletContext().getAttribute(XmppServlet.SESSIONUTIL);
   }
 
   /**
@@ -54,47 +61,46 @@ public class ExposeURLServlet extends HttpServlet {
   @Override
   public void doPost(final HttpServletRequest request, final HttpServletResponse response) throws ServletException,
       IOException {
-
-    Map<JID, XmppSession> clientSessions = null;
     // send presence message to xmpp client.
     Set<String> clients = (Set) getServletContext().getAttribute(SimpleImServerXmppServlet.ActiveClientAttributeName);
 
     clients.add(HTTP_USER);
     for (String s : clients) {
-      Element stanzaResp = DocumentHelper.createElement("presence");
-      stanzaResp.addAttribute("from", HTTP_USER);
-      stanzaResp.addAttribute("to", s);
-
-      clientSessions = (Map<JID, XmppSession>) getServletContext().getAttribute(
-          SimpleImServerXmppServlet.XMPPSessionMapAttributeName);
-
-      if (clientSessions.size() == 0) {
-        log("clientSessionMap is empty");
-        return;
-      }
-      XmppSession xmppSession = clientSessions.get(_xmppFactory.createJID(s).getBareJID());
-      if (xmppSession != null) {
-        XmppServletStanzaRequest xmppReq = _xmppFactory.createStanzaRequest(xmppSession, stanzaResp);
-        xmppReq.send();
-        log("Registered presence message:" + xmppReq.getElement().asXML());
+      List<XmppSession> sessions = _xmppSessionUtil.getSessions(_xmppFactory.createJID(s).getBareJID());
+      if (sessions != null) {
+        for (XmppSession session : sessions) {
+          PresenceMessage xmppReq = session.createPresence(HTTP_USER, (String) null, (Element[]) null);
+          xmppReq.send();
+          log("Registered presence message:");
+        }
       }
     }
 
     // construct message. here just use some fixed value, you can get these info
     // from the http request.
-    String message = "hello, this is from http.";
-    Element messageStanza = DocumentHelper.createElement("message");
-    messageStanza.addAttribute("from", HTTP_USER);
-    messageStanza.addAttribute("type", "chat");
-    messageStanza.addElement("body").setText(message);
-
+    Element body = null;
+    try {
+      body = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument().createElement("body");
+    }
+    catch (DOMException e) {
+      e.printStackTrace();
+    }
+    catch (ParserConfigurationException e) {
+      e.printStackTrace();
+    }
+    body.setTextContent("hello, this is from http.");
     // send a message to all online xmpp client.
-    Set<JID> keys = clientSessions.keySet();
-    for (JID jid : keys) {
-      messageStanza.addAttribute("to", jid.toString());
-      XmppServletStanzaRequest req = _xmppFactory.createStanzaRequest(clientSessions.get(jid), messageStanza);
-      req.send();
-      log("Sent xmpp message : " + req.getElement().asXML() + " from http servlet.");
+    StringBuilder sentUsers = new StringBuilder();
+    for (String s : clients) {
+      List<XmppSession> sessions = _xmppSessionUtil.getSessions(_xmppFactory.createJID(s).getBareJID());
+      if (sessions != null) {
+        for (XmppSession session : sessions) {
+          sentUsers.append(session.getRemoteJID().toString()).append("  ");
+          InstantMessage req = session.createMessage(HTTP_USER, XmppServletMessage.TYPE_CHAT, body);
+          req.send();
+          log("Sent xmpp message  from http servlet.");
+        }
+      }
     }
 
     response.setContentType("text/html");
@@ -110,10 +116,7 @@ public class ExposeURLServlet extends HttpServlet {
 
     out.println("<br><br>" + "Sent message to:" + "<br>");
 
-    for (JID jid : keys) {
-      out.println(jid.toString());
-      out.print("<br>");
-    }
+    out.println(sentUsers.toString());
 
     out.println("</body>");
     out.println("</html>");

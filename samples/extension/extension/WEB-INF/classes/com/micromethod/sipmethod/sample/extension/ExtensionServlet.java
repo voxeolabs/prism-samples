@@ -1,9 +1,12 @@
 package com.micromethod.sipmethod.sample.extension;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
@@ -21,8 +24,7 @@ import com.micromethod.sipmethod.server.container.ContainerMBean;
 import com.micromethod.sipmethod.server.container.SIPMethodSipSessionsUtil;
 
 /**
- * This application demonstrate how to use ServerAPI to create user
- * application.<br>
+ * This application demonstrate how to use ServerAPI to create user application.<br>
  * com.micromethod.sipmethod.server.container.ContainerMBean and
  * com.micromethod.sipmethod.server.container.SIPMethodSipSessionsUtil are used
  * by this sample to show how to get server information with X-Lite.
@@ -34,6 +36,7 @@ public class ExtensionServlet extends SipServlet {
 
   // com.micromethod.sipmethod.server.container.SIPMethodSipSessionsUtil
   protected SIPMethodSipSessionsUtil _sipSessionsUtil = null;
+
   protected SipFactory _factory = null;
 
   // use Resource Annotation to get
@@ -42,8 +45,11 @@ public class ExtensionServlet extends SipServlet {
   protected ContainerMBean _container;
 
   protected List<SipApplicationSession> sessions = null;
+
   private static String NEW_LINE = System.getProperty("line.separator");
+
   private static String ADDRESS_ATTRIBUTE = "com.micromethod.sample.extensionServlet.Addresses";
+
   private static String HELP_MESSAGE = "Usage:" + NEW_LINE + NEW_LINE
       + "Type <font color=#b8110d size=3>applications</font> to list all applications that the server has." + NEW_LINE
       + "Type <font color=#b8110d size=3>all</font> to get the size of the ApplicationSessions that the server has."
@@ -68,8 +74,8 @@ public class ExtensionServlet extends SipServlet {
   }
 
   /**
-   * Invoked for SIP REGISTER requests, which are sent by X-Lite for sign-in
-   * and sign-off.
+   * Invoked for SIP REGISTER requests, which are sent by X-Lite for sign-in and
+   * sign-off.
    */
   @SuppressWarnings("unchecked")
   @Override
@@ -121,7 +127,6 @@ public class ExtensionServlet extends SipServlet {
     SipURI uri = (SipURI) addresses.get(req.getFrom().getURI().toString().toLowerCase());
     // Can not found the uri from the address list.
     if (uri == null) {
-      answer.setContent("You haven't registered", "text/plain");
       if (req.getAddressHeader("Contact") != null) {
         uri = (SipURI) req.getAddressHeader("Contact").getURI();
       }
@@ -132,9 +137,6 @@ public class ExtensionServlet extends SipServlet {
         uri.setPort(req.getRemotePort());
         uri.setTransportParam(req.getTransport());
       }
-      answer.setRequestURI(uri);
-      answer.send();
-      return;
     }
     // We accept the instant message by returning 200 OK response.
     req.createResponse(SipServletResponse.SC_OK).send();
@@ -198,6 +200,8 @@ public class ExtensionServlet extends SipServlet {
     return HELP_MESSAGE;
   }
 
+  private static final Pattern P = Pattern.compile("<[^>]+>([^<]+)<[^>]+>");
+
   /**
    * Extract the request message from the request. The message from X-Lite is
    * like:"<front>message</front>"
@@ -205,25 +209,24 @@ public class ExtensionServlet extends SipServlet {
    * @param req
    * @return the content
    */
-  protected String getContent(SipServletRequest req) {
-    String result = null;
-    String question = null;
-    String content = null;
-
-    try {
-      content = new String(req.getRawContent());
-      int begin = content.indexOf("<font");
-      int end = content.indexOf("</font");
-      if (begin >= 0 && end > 0 && begin <= end) {
-        result = content.substring(begin, end);
-        // extract the message.
-        question = result.substring(result.indexOf(">") + 1);
+  private String getContent(final SipServletRequest sipReq) throws UnsupportedEncodingException, IOException {
+    String s = sipReq.getContent().toString();
+    if (sipReq.getContentType().equalsIgnoreCase("text/html")) {
+      final Matcher m = P.matcher(s);
+      String a = "";
+      while (m.find()) {
+        a += m.group(1);
       }
+      s = a;
     }
-    catch (Exception e) {
-      log(e.getMessage(), e);
+
+    // used to get the exit command: quit, exit, bye.
+    s = s.trim();
+    if (s.endsWith("\r\n")) {
+      s = s.substring(0, s.length() - 2);
+      s = s.trim();
     }
-    return question;
+    return s;
   }
 
   @Override

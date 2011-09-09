@@ -87,6 +87,7 @@ public class B2BUA extends SipServlet {
       callee.setTransportParam(_transport);
 
       // Create the request-to-callee in the B2BUA-to-callee call leg
+      @SuppressWarnings("deprecation")
       final SipServletRequest req2callee = _factory.createRequest(req, true);
       req2callee.setRequestURI(callee);
       copyContent(req, req2callee);

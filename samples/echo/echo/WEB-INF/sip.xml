@@ -1,57 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sip-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.jcp.org/xml/ns/sipservlet sip-app_1_1.xsd">
-	<app-name>Echo</app-name>
-	<display-name>Echo Servlet</display-name>
-	<description>A simple Echo SIP Servlet application</description>
-	<!-- Management link:echo/addresses -->
-	<servlet>
-		<servlet-name>echo</servlet-name>
-		<display-name>SIP Servlet Sample</display-name>
-		<description>Echo Servlet</description>
-		<servlet-class>com.micromethod.sipmethod.sample.echo.EchoServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet-selection>
-		<servlet-mapping>
-			<servlet-name>echo</servlet-name>
-			<pattern>
-				<or>
-					<and>
-						<equal ignore-case="false">
-							<var>request.method</var>
-							<value>REGISTER</value>
-						</equal>
-						<equal ignore-case="false">
-							<var>request.from.uri.host</var>
-							<value>echo.sample.prism.voxeo.com</value>
-						</equal>
-					</and>
-					<and>
-						<or>
-							<equal ignore-case="false">
-								<var>request.method</var>
-								<value>MESSAGE</value>
-							</equal>
-							<equal ignore-case="false">
-								<var>request.method</var>
-								<value>INVITE</value>
-							</equal>
-						</or>
-						<equal ignore-case="false">
-							<var>request.from.uri.host</var>
-							<value>echo.sample.prism.voxeo.com</value>
-						</equal>
+  xsi:schemaLocation="http://www.jcp.org/xml/ns/sipservlet sip-app_1_1.xsd">
+  <app-name>Echo</app-name>
+  <display-name>Echo Servlet</display-name>
+  <description>A simple Echo SIP Servlet application</description>
+  <!-- Management link:echo/addresses -->
+  <servlet>
+    <servlet-name>echo</servlet-name>
+    <display-name>SIP Servlet Sample</display-name>
+    <description>Echo Servlet</description>
+    <servlet-class>com.micromethod.sipmethod.sample.echo.EchoServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-selection>
+    <servlet-mapping>
+      <servlet-name>echo</servlet-name>
+      <pattern>
+        <and>
+          <or>
             <equal ignore-case="false">
-              <var>request.to.uri.user</var>
-              <value>echo</value>
+              <var>request.method</var>
+              <value>MESSAGE</value>
             </equal>
-					</and>
-				</or>
-			</pattern>
-		</servlet-mapping>
-	</servlet-selection>
-	<session-config>
-		<session-timeout>10</session-timeout>
-	</session-config>
+            <equal ignore-case="false">
+              <var>request.method</var>
+              <value>INVITE</value>
+            </equal>
+          </or>
+          <equal ignore-case="false">
+            <var>request.to.uri.user</var>
+            <value>echo</value>
+          </equal>
+        </and>
+      </pattern>
+    </servlet-mapping>
+  </servlet-selection>
+  <session-config>
+    <session-timeout>10</session-timeout>
+  </session-config>
 </sip-app>

@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmpp:xmpp-app xmlns:javaee="http://java.sun.com/xml/ns/javaee"
-	xmlns:xmpp="http://www.voxeo.com/sipmethod/xmpp" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.voxeo.com/sipmethod/xmpp xmpp.xsd"
-	version="1.1">
+  xmlns:xmpp="http://www.voxeo.com/sipmethod/xmpp" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.voxeo.com/sipmethod/xmpp xmpp.xsd"
+  version="1.1">
 
-	<xmpp:servlet>
-		<javaee:servlet-name>xmppclient</javaee:servlet-name>
-		<javaee:servlet-class>
-			com.voxeo.sipmethod.sample.xmppclient.XMPPClientReceiveBackMessageServlet
-		</javaee:servlet-class>
-		<javaee:load-on-startup>1</javaee:load-on-startup>
-	</xmpp:servlet>
+  <listener>
+    <listener-class>com.voxeo.sipmethod.sample.xmppclient.MyXmppConnectionListener</listener-class>
+  </listener>
 
-	<xmpp:servlet-selection>
-		<xmpp:main-servlet>xmppclient</xmpp:main-servlet>
-	</xmpp:servlet-selection>
+  <xmpp:servlet>
+    <javaee:servlet-name>xmppclient</javaee:servlet-name>
+    <javaee:servlet-class>
+      com.voxeo.sipmethod.sample.xmppclient.XMPPClientReceiveBackMessageServlet
+    </javaee:servlet-class>
+    <javaee:load-on-startup>1</javaee:load-on-startup>
+  </xmpp:servlet>
+
+  <xmpp:servlet-selection>
+    <xmpp:main-servlet>xmppclient</xmpp:main-servlet>
+  </xmpp:servlet-selection>
 </xmpp:xmpp-app>

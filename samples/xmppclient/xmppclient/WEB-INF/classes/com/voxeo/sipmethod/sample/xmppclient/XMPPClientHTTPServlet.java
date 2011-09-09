@@ -9,11 +9,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
+import org.w3c.dom.DOMException;
+import org.w3c.dom.Element;
 
-import com.voxeo.servlet.xmpp.JID;
+
 import com.voxeo.servlet.xmpp.XmppFactory;
 import com.voxeo.servlet.xmpp.XmppServlet;
 import com.voxeo.servlet.xmpp.XmppSession;
@@ -33,7 +35,6 @@ public class XMPPClientHTTPServlet extends HttpServlet {
   @Override
   public void init() throws ServletException {
     super.init();
-
     // Get a reference to the XMPPFactory.
     _xmppFactory = (XmppFactory) getServletContext().getAttribute(XmppServlet.XMPP_FACTORY);
 
@@ -60,48 +61,46 @@ public class XMPPClientHTTPServlet extends HttpServlet {
     // this account password:testxmppclient_1.
     String myXMPPAccount = "testxmppclient@gmail.com";
     // this account password:testxmppclient2_1
-    String messageto = "testxmppclient2@gmail.com";
+    String messageTo = "testxmppclient2@gmail.com";
 
     String message = "hello, this is XMPP servlet client.";
-
-    JID toJID = _xmppFactory.createJID(messageto);
-    JID fromJID = _xmppFactory.createJID(myXMPPAccount);
-
-    // prepare the message to be sent.
-    Element messageStanza = DocumentHelper.createElement("message");
-    messageStanza.addAttribute("to", toJID.toString());
-    messageStanza.addAttribute("from", fromJID.toString());
-    messageStanza.addAttribute("type", "chat");
-    messageStanza.addElement("body").setText(message);
 
     // save this session in a map, so you can use this session to send
     // message in later HTTP requests.
     XmppSession clientSession = null;
     synchronized (myXMPPAccount.intern()) {
       clientSession = _sessions.get(myXMPPAccount);
-
       // if session is not created, create the session.
       if (clientSession == null) {
-        clientSession = _xmppFactory.createSession(myXMPPAccount, "testxmppclient_1", null);
+        clientSession = _xmppFactory.createSession(_xmppFactory.createJID("gmail.com"), "testxmppclient",
+            "testxmppclient_1", null);
         // wait until session features negotiaged.
         synchronized (clientSession) {
           try {
-            clientSession.wait();
+            clientSession.wait(30000);
           }
           catch (InterruptedException e) {
             // ignore
           }
         }
-
         // send initial presence per RFC3921
-        Element presence = DocumentHelper.createElement("presence");
-        presence.addAttribute("from", fromJID.toString());
-        clientSession.createStanzaRequest(presence, null, null, null, null, null).send();
+        clientSession.createPresence(null, null, null).send();
       }
     }
 
     // send message.
-    clientSession.createStanzaRequest(messageStanza, toJID, fromJID, null, null, null).send();
+    Element body = null;
+    try {
+      body = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument().createElement("body");
+    }
+    catch (DOMException e) {
+      e.printStackTrace();
+    }
+    catch (ParserConfigurationException e) {
+      e.printStackTrace();
+    }
+    body.setTextContent(message);
+    clientSession.createMessage(messageTo, (String)null, body).send();
 
     response.setContentType("text/html");
     final PrintWriter out = response.getWriter();
@@ -116,7 +115,7 @@ public class XMPPClientHTTPServlet extends HttpServlet {
 
     out.println("<br><br>" + "Sent message to:" + "<br>");
 
-    out.println(messageto);
+    out.println(messageTo);
     out.print("<br>");
 
     out.println("</body>");

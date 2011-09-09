@@ -13,21 +13,4 @@
     <load-on-startup>1</load-on-startup>
   </servlet>
 
-  <servlet-selection>
-    <servlet-mapping>
-      <servlet-name>SipAction</servlet-name>
-      <pattern>
-          <and>
-            <equal ignore-case="false">
-              <var>request.method</var>
-              <value>REGISTER</value>
-            </equal>
-            <equal ignore-case="false">
-              <var>request.from.uri.host</var>
-              <value>clicktodial.sample.prism.voxeo.com</value>
-            </equal>
-          </and>
-      </pattern>
-    </servlet-mapping>
-  </servlet-selection>
 </sip-app>

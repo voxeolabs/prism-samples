@@ -1,5 +1,11 @@
 package com.micromethod.sipmethod.sample.clicktodial;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,16 +26,26 @@ public class SipAgentImpl implements SipAgent, SipListener {
 
   private final Map<String, Call> m_calls = new HashMap<String, Call>();
 
-  private final Map<String, URI> m_addresses = new HashMap<String, URI>();
+  String _queryRegInfoURL = "http://localhost:8080/registrar/query?fromOtherSample=true";
 
-  public SipAgentImpl(final ServletContext context) {
+  public SipAgentImpl(final ServletContext context, String queryRegInfoURL) {
     m_sipContext = context;
     m_factory = (SipFactory) context.getAttribute("javax.servlet.sip.SipFactory");
     m_sipContext.setAttribute("SIP_LISTENER", this);
+
+    if (queryRegInfoURL != null) {
+      _queryRegInfoURL = queryRegInfoURL;
+    }
   }
 
-  public Call makeCall(final String user1, final String user2) {
+  public Call makeCall(String user1, String user2) {
     System.out.println("Make call:" + user1 + ":" + user2);
+    if (!user1.startsWith("sip:")) {
+      user1 = "sip:" + user1;
+    }
+    if (!user2.startsWith("sip:")) {
+      user2 = "sip:" + user2;
+    }
     final URI uri1 = query(user1);
     final URI uri2 = query(user2);
     if (uri1 == null || uri2 == null) {
@@ -271,24 +287,7 @@ public class SipAgentImpl implements SipAgent, SipListener {
   }
 
   public void doRequest(final SipServletRequest req) {
-    if (req.getMethod().equalsIgnoreCase("REGISTER")) {
-      try {
-        final String aor = req.getFrom().getURI().toString().toLowerCase();
-        synchronized (m_addresses) {
-          if (req.getExpires() != 0) {
-            m_addresses.put(aor, req.getAddressHeader("Contact").getURI());
-          }
-          else {
-            m_addresses.remove(aor);
-          }
-        }
-        req.createResponse(SipServletResponse.SC_OK).send();
-      }
-      catch (final Exception e) {
-        e.printStackTrace();
-      }
-    }
-    else if (req.getMethod().equalsIgnoreCase("BYE")) {
+    if (req.getMethod().equalsIgnoreCase("BYE")) {
       try {
         req.createResponse(SipServletResponse.SC_OK).send();
       }
@@ -326,8 +325,15 @@ public class SipAgentImpl implements SipAgent, SipListener {
 
   private URI query(final String aor) {
     URI ret = null;
-    synchronized (m_addresses) {
-      ret = m_addresses.get(aor.toLowerCase());
+
+    try {
+      String uris = getAddresses().get(aor);
+      if (uris != null) {
+        ret = m_factory.createURI(uris);
+      }
+    }
+    catch (Exception e1) {
+      e1.printStackTrace();
     }
     if (ret == null) {
       try {
@@ -375,5 +381,52 @@ public class SipAgentImpl implements SipAgent, SipListener {
     catch (final Exception e) {
       System.out.println("Copy content failed." + e);
     }
+  }
+
+  private Map<String, String> getAddresses() throws IOException {
+    Map<String, String> regInfo = new HashMap<String, String>();
+
+    String result = getRegInfo(_queryRegInfoURL);
+
+    if (result != null && result.length() > 0) {
+      String[] s = result.split("\r\n");
+
+      for (String t : s) {
+        String[] a = t.split(" ");
+        if (a.length == 2) {
+          regInfo.put(a[0], a[1]);
+        }
+
+      }
+    }
+    return regInfo;
+  }
+
+  private String getRegInfo(String posturl) throws IOException {
+    URL url = new URL(posturl);
+    URLConnection conn = url.openConnection();
+    conn.setDoOutput(false);
+
+    if (conn instanceof HttpURLConnection) {
+      HttpURLConnection httpConnection = (HttpURLConnection) conn;
+      if (httpConnection.getResponseCode() != 200) {
+        throw new IOException("Status " + httpConnection.getResponseCode());
+      }
+    }
+    return getContentFromConn(conn);
+  }
+
+  private String getContentFromConn(URLConnection conn) throws IOException {
+    String response = null;
+
+    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+    StringBuffer buf = new StringBuffer();
+    String line;
+    while (null != (line = br.readLine())) {
+      buf.append(line).append("\r\n");
+    }
+    response = buf.toString();
+    br.close();
+    return response.trim();
   }
 }

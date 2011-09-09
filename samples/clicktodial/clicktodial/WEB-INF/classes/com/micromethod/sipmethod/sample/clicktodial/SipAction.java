@@ -14,13 +14,15 @@ public class SipAction extends SipServlet {
   @Override
   public void init() throws ServletException {
     super.init();
-    getServletContext().setAttribute("SIP_AGENT", new SipAgentImpl(getServletContext()));
+
+    getServletContext().setAttribute("SIP_AGENT",
+        new SipAgentImpl(getServletContext(), getInitParameter("QueryRegInfoURL")));
   }
 
   @Override
   protected void doRequest(final SipServletRequest req) throws IOException, ServletException {
     try {
-      if (req.getMethod().equalsIgnoreCase("REGISTER") || req.getMethod().equalsIgnoreCase("BYE")) {
+      if (req.getMethod().equalsIgnoreCase("BYE")) {
         final SipListener listener = (SipListener) getServletContext().getAttribute("SIP_LISTENER");
         listener.doRequest(req);
       }

@@ -1,52 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sip-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns:javaee="http://java.sun.com/xml/ns/javaee"
-	xsi:schemaLocation="TEST sip-app_1_1.xsd">
-	<app-name>convergence</app-name>
-	<display-name>convergence</display-name>
+  xmlns:javaee="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="TEST sip-app_1_1.xsd">
+  <app-name>convergence</app-name>
+  <display-name>convergence</display-name>
 
-	<servlet>
-		<servlet-name>ReceiveMessageSIPServlet</servlet-name>
-		<display-name>ReceiveMessageSIPServlet</display-name>
-		<servlet-class> com.voxeo.sipmethod.sample.convergence.ReceiveMessageSIPServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-  
-    <servlet-selection>
+  <servlet>
+    <servlet-name>ReceiveMessageSIPServlet</servlet-name>
+    <display-name>ReceiveMessageSIPServlet</display-name>
+    <servlet-class>
+      com.voxeo.sipmethod.sample.convergence.ReceiveMessageSIPServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-selection>
     <servlet-mapping>
       <servlet-name>ReceiveMessageSIPServlet</servlet-name>
       <pattern>
-        <or>
-          <and>
-            <equal ignore-case="false">
-              <var>request.method</var>
-              <value>REGISTER</value>
-            </equal>
-            <equal ignore-case="false">
-              <var>request.from.uri.host</var>
-              <value>convergence.sample.prism.voxeo.com</value>
-            </equal>
-          </and>
-          <and>
-            <equal ignore-case="false">
-                <var>request.method</var>
-                <value>MESSAGE</value>
-            </equal>
-            <equal ignore-case="false">
-              <var>request.from.uri.host</var>
-              <value>convergence.sample.prism.voxeo.com</value>
-            </equal>
-            <equal ignore-case="false">
-              <var>request.to.uri.user</var>
-              <value>convergence</value>
-            </equal>
-          </and>
-        </or>
+
+        <and>
+          <equal ignore-case="false">
+            <var>request.method</var>
+            <value>MESSAGE</value>
+          </equal>
+
+          <equal ignore-case="false">
+            <var>request.to.uri.user</var>
+            <value>convergence</value>
+          </equal>
+        </and>
+
       </pattern>
     </servlet-mapping>
   </servlet-selection>
-	
-	<session-config>
-		<session-timeout>10</session-timeout>
-	</session-config>	
+
+  <session-config>
+    <session-timeout>10</session-timeout>
+  </session-config>
 </sip-app>

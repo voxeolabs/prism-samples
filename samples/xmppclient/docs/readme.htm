@@ -24,7 +24,7 @@
 <blockquote>
   <p>There are two servlets in this sample. One is a HTTP servlet, named <a href="../xmppclient/WEB-INF/classes/com/voxeo/sipmethod/sample/xmppclient/XMPPClientHTTPServlet.java">XMPPClientHTTPServlet</a>.
   The XMPPClientHTTPServlet expose a HTTP URL, http://localhost:8080/xmppclient/XMPPClient. When you access this URL, the servlet will use XMPP servlet API to initiate
-  a session to gtalk using account testxmppclient@gmail.com. After the session has been created(i.e logon to gtalk), the servlet will send a message to account testxmppclient2@gmail.com. So if testxmppclient@gmail.com
+  a session to gtalk using account testxmppclient@gmail.com. After the session has been created(i.e log on to gtalk), the servlet will send a message to account testxmppclient2@gmail.com. So if testxmppclient2@gmail.com
    is online, it will receive a message "hello, this is XMPP servlet client."  The second servlet is <a href="../xmppclient/WEB-INF/classes/com/voxeo/sipmethod/sample/xmppclient/XMPPClientReceiveBackMessageServlet.java">XMPPClientReceiveBackMessageServlet</a>, 
    it is a XMPP servlet, used to accomplish the following negotiation process after the XMPPClientHTTPServlet initiate a session to gtalk, it is also used to receive the back message and just echo it.</p>
    <p>For more details, please see <a href="../xmppclient/WEB-INF/classes/com/voxeo/sipmethod/sample/xmppclient">source codes</a>. </p>
@@ -55,9 +55,9 @@
 	<ol>
 	<li>Copy <em>xmppclient</em> directory (or <em>xmppclient.sar</em>) into <em>$INSTALL_DIR/apps</em> directory.</li>
 	<br>
-	<li>Start SIP servlet container (SIPMethod Application Server) as <em>user guide</em>.</li>
+	<li>Start SIP servlet container (Prism Application Server) as <em>user guide</em>.</li>
 	<br>
-	<li>logon to gtalk using account testxmppclient2@gmail.com(password testxmppclient2_1).</li>
+	<li>log on to gtalk using account testxmppclient2@gmail.com(password testxmppclient2_1).</li>
 	<br>
 	<li>Access the URL <a href="http://localhost:8080/xmppclient/XMPPClient">http://localhost:8080/xmppclient/XMPPClient</a>, 
 	you will see a response page that says "Sent message to: testxmppclient2@gmail.com".

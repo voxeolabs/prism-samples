@@ -88,8 +88,8 @@ public class EchoServlet extends SipServlet {
   }
 
   /**
-   * Invoked for SIP REGISTER requests, which are sent by X-Lite for sign-in
-   * and sign-off.
+   * Invoked for SIP REGISTER requests, which are sent by X-Lite for sign-in and
+   * sign-off.
    */
   @Override
   protected void doRegister(final SipServletRequest req) throws IOException, ServletException {
@@ -150,10 +150,11 @@ public class EchoServlet extends SipServlet {
       echo.setCharacterEncoding(charset);
     }
 
+    echo.setContent(req.getContent(), req.getContentType());
+
     // Get the previous registered address for the sender.
     SipURI uri = (SipURI) addresses.get(req.getFrom().getURI().toString().toLowerCase());
     if (uri == null) {
-      echo.setContent("You haven't registered", "text/plain");
       if (req.getAddressHeader("Contact") != null) {
         uri = (SipURI) req.getAddressHeader("Contact").getURI();
       }
@@ -165,9 +166,7 @@ public class EchoServlet extends SipServlet {
         uri.setTransportParam(req.getTransport());
       }
     }
-    else {
-      echo.setContent(req.getContent(), req.getContentType());
-    }
+
     echo.setRequestURI(uri);
 
     // Send the echo MESSAGE request back to Windows Messenger.

@@ -14,32 +14,16 @@
     <servlet-mapping>
       <servlet-name>ExtensionServlet</servlet-name>
       <pattern>
-        <or>
-          <and>
-            <equal ignore-case="false">
-              <var>request.method</var>
-              <value>REGISTER</value>
-            </equal>
-            <equal ignore-case="false">
-              <var>request.from.uri.host</var>
-              <value>extention.sample.prism.voxeo.com</value>
-            </equal>
-          </and>
-          <and>
-              <equal ignore-case="false">
-                <var>request.method</var>
-                <value>MESSAGE</value>
-              </equal>
-	            <equal ignore-case="false">
-	              <var>request.from.uri.host</var>
-	              <value>extention.sample.prism.voxeo.com</value>
-	            </equal>
-              <equal ignore-case="false">
-                <var>request.to.uri.user</var>
-                <value>extention</value>
-              </equal>
-          </and>
-        </or>
+        <and>
+          <equal ignore-case="false">
+            <var>request.method</var>
+            <value>MESSAGE</value>
+          </equal>
+          <equal ignore-case="false">
+            <var>request.to.uri.user</var>
+            <value>extension</value>
+          </equal>
+        </and>
       </pattern>
     </servlet-mapping>
   </servlet-selection>
