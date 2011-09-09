@@ -1,11 +1,26 @@
-Voxeo Prism Sample Applications
+Voxeo PRISM Sample Applications
+================================================================================================
+
+PRISM is a scalable Unified Communications Application Server for building and delivering web and 
+telecom applications. PRISM is based on the latest IETF and Java open standards and supports SIP, 
+XMPP (formerly Jabber), Jingle, HTTP, MRCP, MGCP, JSR-289, JSR-309, SIP/HTTP Servlets, 
+J2EE architectures and XMPP Servlets. It includes Moho (open source Java framework for developing 
+multi-channel communications applications), as well a standards based media server and clustering 
+for high performance applications and a SIP/HTTP Servlet and Web Services runtime engine for 
+converged IP communication service providers.
+
+================================================================================================
+
+DOWNLOAD:  Voxeo PRISM is available for download from http://voxeolabs.com/prism/
+
+A free trial version is available for Microsoft Windows, Linux and Mac OS X.
+
+================================================================================================
 
 The followings are sample applications that demonstrate how to use SIP servlet technology to build 
-converged SIP/HTTP/JSR-309/XMPP applications based on Voxeo Prism Application Server.
+converged SIP/HTTP/JSR-309/XMPP applications based on Voxeo PRISM Application Server.
 
-NOTE: Voxeo Prism is available for download from http://www.voxeo.com/prism/
-
---  Converged Prism Application <prism/docs/readme.htm> 	
+--  Converged PRISM Application <prism/docs/readme.htm> 	
     This sample demonstrates how to write a simple application with SIP Servlet API and JSR-309 API
 
 -- Converged User Agent Server <echo/docs/readme.htm> 	
@@ -15,10 +30,12 @@ NOTE: Voxeo Prism is available for download from http://www.voxeo.com/prism/
    This sample demonstrates how to write a simple B2BUA SIP servlet.
 
 -- Find-Me Application <findme/docs/readme.htm> 	
-   This sample demonstrates how to write a simple Find-Me and Single Line Extension application by leveraging built-in SIP proxy function. This sample also demonstrate how to write a JWS based Web Service.
+   This sample demonstrates how to write a simple Find-Me and Single Line Extension application by 
+   leveraging built-in SIP proxy function. This sample also demonstrate how to write a JWS based Web Service.
 
 -- Click-To-Dial Application <clicktodial/docs/readme.htm> 	
-   This sample demonstrates how to write a simple Click-To-Dial application. It also demonstrate how to use Web Services to do Click-To-Dial.
+   This sample demonstrates how to write a simple Click-To-Dial application. It also demonstrate 
+   how to use Web Services to do Click-To-Dial.
 
 -- IVR application <vxml/docs/readme.htm> 	
    This sample demonstrates how to write a simple IVR Application.
@@ -30,13 +47,15 @@ NOTE: Voxeo Prism is available for download from http://www.voxeo.com/prism/
    This sample demonstrates how to use SIPMethod APIs.
 
 -- 3-way Conference Application <userjoin/docs/readme.htm> 	
-   This is a sample conferencing application based on Third Party Joins <http://www.tech-invite.com/Ti-sip-service-11.html>.
+   This is a sample conferencing application based on Third Party Joins 
+   <http://www.tech-invite.com/Ti-sip-service-11.html>.
 
 -- Convergence Application <convergence/docs/readme.htm> 	
    It demonstrates how SIP, HTTP and XMPP servlets can work together.
 
 -- Simple XMPP Server Application <xmppecho/docs/readme.htm> 	
-   It demonstrates how a simple XMPP IM server handles XMPP client logon, client messages, XMPP s2s communication, and s2s messages.
+   It demonstrates how a simple XMPP IM server handles XMPP client logon, client messages, 
+   XMPP s2s communication, and s2s messages.
 
 -- Simple XMPP Client Application <xmppclient/docs/readme.htm>   
    This sample application demonstrates how to implement a XMPP client using XMPP servlet technology.
@@ -45,7 +64,7 @@ NOTE: Voxeo Prism is available for download from http://www.voxeo.com/prism/
    Sample applications demonstrating the use of Moho - http://labs.voxeo.com/moho
 
 ================================================================================================
-The following sample applications are included with the Prism distribution available for download 
+The following sample applications are included with the PRISM distribution available for download 
 from http://www.voxeo.com/prism/ but are not available from this repository due to their distribution license.
 
 -- Player Application <play/docs/readme.htm> 	
