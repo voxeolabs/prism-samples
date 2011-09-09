@@ -26,7 +26,6 @@ import javax.media.mscontrol.mediagroup.RecorderEvent;
 import javax.media.mscontrol.mediagroup.SpeechDetectorConstants;
 import javax.media.mscontrol.mediagroup.signals.SignalDetector;
 import javax.media.mscontrol.mediagroup.signals.SignalDetectorEvent;
-import javax.media.mscontrol.mediagroup.signals.SpeechRecognitionEvent;
 import javax.media.mscontrol.networkconnection.NetworkConnection;
 import javax.media.mscontrol.networkconnection.SdpPortManagerEvent;
 import javax.media.mscontrol.networkconnection.SdpPortManagerException;
@@ -40,7 +39,6 @@ import javax.servlet.sip.SipServletRequest;
 import javax.servlet.sip.SipServletResponse;
 import javax.servlet.sip.SipSession;
 import javax.servlet.sip.SipURI;
-import javax.servlet.sip.URI;
 
 /**
  * @author zhuwillie
@@ -69,8 +67,6 @@ public class PrismServlet extends SipServlet {
 
   public final static String SESSIONSTATE_DIALOG_RECORDFUNCTION = "SESSIONSTATE_DIALOG_RECORDFUNCTION";
 
-  public final static String ADDRESSES_ATTRIBUTE_NAME = "com.voxeo.prism.sample.ivr.Addresses";
-
   public final static String SESSIONS_ATTRIBUTE_NAME = "com.voxeo.prism.sample.ivr.Sessiones";
 
   /**
@@ -81,11 +77,8 @@ public class PrismServlet extends SipServlet {
     super.init();
     // Create addresses map and put it in context attribute.
     final ServletContext context = getServletContext();
-    final Map<String, URI> addresses = new ConcurrentHashMap<String, URI>();
 
     final Map<String, SipSession> sessions = new ConcurrentHashMap<String, SipSession>();
-
-    context.setAttribute(ADDRESSES_ATTRIBUTE_NAME, addresses);
 
     context.setAttribute(SESSIONS_ATTRIBUTE_NAME, sessions);
     _sipFactory = (SipFactory) getServletContext().getAttribute(SIP_FACTORY);
@@ -100,51 +93,13 @@ public class PrismServlet extends SipServlet {
   }
 
   /**
-   * Invoked for SIP REGISTER requests, which are sent by X-Lite for sign-in and
-   * sign-off.
-   */
-  @Override
-  protected void doRegister(final SipServletRequest req) throws IOException, ServletException {
-    // get addresses map from context attribute.
-    final ServletContext context = getServletContext();
-    final Map<String, URI> addresses = (Map<String, URI>) context.getAttribute(ADDRESSES_ATTRIBUTE_NAME);
-
-    final String aor = req.getFrom().getURI().toString().toLowerCase();
-
-    int expire = req.getExpires();
-    if (expire == -1) {
-      expire = req.getAddressHeader("Contact").getExpires();
-    }
-
-    // The non-zero value of Expires header indicates a sign-in.
-    if (expire > 0) {
-      // Keep the name/address mapping.
-      addresses.put(aor, req.getAddressHeader("Contact").getURI());
-
-      // reset addresses map in context attribute for replication.
-      context.setAttribute(ADDRESSES_ATTRIBUTE_NAME, addresses);
-    }
-    else {
-      // The zero value of Expires header indicates a sign-off.
-      // Remove the name/address mapping.
-      addresses.remove(aor);
-
-      // reset addresses map in context attribute for replication.
-      context.setAttribute(ADDRESSES_ATTRIBUTE_NAME, addresses);
-    }
-
-    // We accept the sign-in or sign-off by returning 200 OK response.
-    req.createResponse(SipServletResponse.SC_OK).send();
-
-    req.getApplicationSession().invalidate();
-  }
-
-  /**
    * Invoked for SIP INVITE requests, which are sent by X-Lite to establish a
    * chat session.
    */
   @Override
   protected void doInvite(final SipServletRequest req) throws IOException, ServletException {
+    req.createResponse(SipServletResponse.SC_RINGING).send();
+
     NetworkConnection conn = null;
 
     final SipSession sipSession = req.getSession();
@@ -292,7 +247,6 @@ public class PrismServlet extends SipServlet {
       else {
         // get addresses map from context attribute.
         final ServletContext context = getServletContext();
-        final Map<String, URI> addresses = (Map<String, URI>) context.getAttribute(ADDRESSES_ATTRIBUTE_NAME);
 
         // Create an echo SIP MESSAGE request with the same content.
         final SipServletRequest echo = req.getSession().createRequest("MESSAGE");
@@ -302,24 +256,22 @@ public class PrismServlet extends SipServlet {
           echo.setCharacterEncoding(charset);
         }
 
+        echo.setContent(req.getContent(), req.getContentType());
+
         // Get the previous registered address for the sender.
-        SipURI uri = (SipURI) addresses.get(req.getFrom().getURI().toString().toLowerCase());
-        if (uri == null) {
-          echo.setContent("You haven't registered", "text/plain");
-          if (req.getAddressHeader("Contact") != null) {
-            uri = (SipURI) req.getAddressHeader("Contact").getURI();
-          }
-          else {
-            final SipURI requesturi = (SipURI) req.getRequestURI();
-            final String user = requesturi.getUser();
-            uri = _sipFactory.createSipURI(user, req.getRemoteAddr());
-            uri.setPort(req.getRemotePort());
-            uri.setTransportParam(req.getTransport());
-          }
+        SipURI uri = null;
+
+        if (req.getAddressHeader("Contact") != null) {
+          uri = (SipURI) req.getAddressHeader("Contact").getURI();
         }
         else {
-          echo.setContent(req.getContent(), req.getContentType());
+          final SipURI requesturi = (SipURI) req.getRequestURI();
+          final String user = requesturi.getUser();
+          uri = _sipFactory.createSipURI(user, req.getRemoteAddr());
+          uri.setPort(req.getRemotePort());
+          uri.setTransportParam(req.getTransport());
         }
+
         echo.setRequestURI(uri);
 
         // Send the echo MESSAGE request back to Windows Messenger.
@@ -412,7 +364,12 @@ public class PrismServlet extends SipServlet {
             inv.createResponse(SipServletResponse.SC_SERVER_INTERNAL_ERROR).send();
           }
           // Clean up media session
-          sipSession.removeAttribute("MEDIA_SESSION");
+          try {
+            sipSession.removeAttribute("MEDIA_SESSION");
+          }
+          catch (IllegalStateException e) {
+            ;
+          }
           mediaSession.release();
         }
       }
@@ -461,9 +418,8 @@ public class PrismServlet extends SipServlet {
     try {
       final Parameters collectOptions = mediaGroup.createParameters();
 
-      collectOptions.put(SignalDetector.PATTERN[0], "1,2");
-      collectOptions.put(SignalDetector.PATTERN[1], creatASRGrammar());
-      collectOptions.put(SpeechDetectorConstants.SENSITIVITY, 1);
+      collectOptions.put(SignalDetector.PATTERN[0], "1,one");
+      collectOptions.put(SignalDetector.PATTERN[1], "2,two");
       // play prompt
       collectOptions.put(SignalDetector.PROMPT,
           createTTSResource("Press or say  1 for testing TTS, Press or say 2 for testing Recording"));
@@ -496,29 +452,26 @@ public class PrismServlet extends SipServlet {
 
       final MediaGroup mediaGroup = (MediaGroup) sipSession.getAttribute("MEDIAGROUP");
 
-      // detect '#' signal to stop record.
-      final Parameters collectOptions = mediaGroup.createParameters();
-      collectOptions.put(SignalDetector.PATTERN[0], "#");
-      mediaGroup.getSignalDetector().receiveSignals(-1, new Parameter[] {SignalDetector.PATTERN[0]}, RTC.NO_RTC,
-          collectOptions);
-
       // record
       final Parameters options = mediaGroup.createParameters();
       options.put(Recorder.START_BEEP, true);
       options.put(SpeechDetectorConstants.BARGE_IN_ENABLED, false);
       options.put(Recorder.PROMPT,
           createTTSResource("Please record your message after the beep. Press hash to stop record."));
+      // detect '#' signal to stop record.
+      options.put(SignalDetector.PATTERN[0], "#");
 
       // construct record file location.
-      final String path = sipSession.getServletContext().getRealPath(
-          ((SipURI) sipSession.getRemoteParty().getURI()).getUser() + "_" + new Date().getTime() + "_Recording.au");
+      final String path = sipSession.getServletContext().getRealPath("/") + 
+          ((SipURI) sipSession.getRemoteParty().getURI()).getUser() + "_" + new Date().getTime() + "_Recording.au";
 
       File file = new File(path);
       final java.net.URI record = file.toURI();
 
       sipSession.setAttribute("RecordFileLocation", record);
 
-      mediaGroup.getRecorder().record(record, RTC.NO_RTC, options);
+      mediaGroup.getRecorder().record(record, new RTC[] {new RTC(SignalDetector.PATTERN_MATCH[0], Recorder.STOP)},
+          options);
     }
     catch (final Exception e) {
       e.printStackTrace();
@@ -534,47 +487,15 @@ public class PrismServlet extends SipServlet {
 
       final MediaSession mediaSession = event.getSource().getMediaSession();
       final SipSession sipSession = (SipSession) mediaSession.getAttribute("SIP_SESSION");
-      final MediaGroup mediaGroup = (MediaGroup) sipSession.getAttribute("MEDIAGROUP");
 
-      if (type == SignalDetectorEvent.RECEIVE_SIGNALS_COMPLETED
-          && (event.getQualifier() == SignalDetectorEvent.PATTERN_MATCHING[0] || event.getQualifier() == SignalDetectorEvent.PATTERN_MATCHING[1])) {
+      if (type == SignalDetectorEvent.RECEIVE_SIGNALS_COMPLETED) {
         // in main menu.
         if (compareState(sipSession, SESSIONSTATE_DIALOG_MAINMENU)) {
-          // enter TTS function
-          if (event instanceof SpeechRecognitionEvent
-              && ((SpeechRecognitionEvent) event).getUserInput().equalsIgnoreCase("one")
-              || event.getSignalString() != null && event.getSignalString().equalsIgnoreCase("1")) {
-
+          if (event.getQualifier() == SignalDetectorEvent.PATTERN_MATCHING[0]) {
             ttsFunction(sipSession);
           }
-          // enter record function
-          else if (event instanceof SpeechRecognitionEvent
-              && ((SpeechRecognitionEvent) event).getUserInput().equalsIgnoreCase("two")
-              || event.getSignalString() != null && event.getSignalString().equalsIgnoreCase("2")) {
-
+          else if (event.getQualifier() == SignalDetectorEvent.PATTERN_MATCHING[1]) {
             recordFunction(sipSession);
-          }
-        }
-        // in TTS function, if received 0, return to main memu.
-        else if (compareState(sipSession, SESSIONSTATE_DIALOG_TTSFUNCTION)
-            && (event instanceof SpeechRecognitionEvent
-                && ((SpeechRecognitionEvent) event).getUserInput().equalsIgnoreCase("zero") || event.getSignalString()
-                .equalsIgnoreCase("0"))) {
-          setState(sipSession, SESSIONSTATE_DIALOG_MAINMENU);
-
-          mainMenu(sipSession);
-
-        }
-
-        // in record function if received #, stop record.
-        else if (compareState(sipSession, SESSIONSTATE_DIALOG_RECORDFUNCTION) && event.getSignalString() != null
-            && event.getSignalString().equalsIgnoreCase("#")) {
-          try {
-            mediaGroup.getRecorder().stop();
-          }
-          catch (final MsControlException e) {
-            e.printStackTrace();
-            terminate(sipSession);
           }
         }
       }
@@ -612,9 +533,6 @@ public class PrismServlet extends SipServlet {
           mediaGroup.getPlayer().play(
               new java.net.URI[] {createTTSResource("Here is what you said"),
                   (java.net.URI) sipSession.getAttribute("RecordFileLocation")}, RTC.NO_RTC, null);
-
-          // enter main menu.
-          mainMenu(sipSession);
         }
         catch (final Exception ex) {
           ex.printStackTrace();
@@ -648,7 +566,7 @@ public class PrismServlet extends SipServlet {
       ((Map<String, SipSession>) getServletContext().getAttribute(SESSIONS_ATTRIBUTE_NAME)).remove(aor);
     }
     catch (final Exception e) {
-      e.printStackTrace();
+      ;
     }
   }
 
@@ -685,20 +603,13 @@ public class PrismServlet extends SipServlet {
 
   // send a message to a sip client.
   private void sendMessage(final SipSession session, final String message) throws IOException {
-    // get addresses map from context attribute.
-    final Map<String, SipURI> addresses = (Map<String, SipURI>) getServletContext().getAttribute(
-        ADDRESSES_ATTRIBUTE_NAME);
 
     // Create an echo SIP MESSAGE request with the content.
     final SipServletRequest echo = _sipFactory.createRequest(session.getApplicationSession(), "MESSAGE", session
         .getLocalParty().getURI(), session.getRemoteParty().getURI());
 
-    // Get the previous registered address for the sender.
-    SipURI uri = addresses.get(session.getRemoteParty().getURI().toString().toLowerCase());
+    SipURI uri = (SipURI) session.getAttribute("RemoteContact");
 
-    if (uri == null) {
-      uri = (SipURI) session.getAttribute("RemoteContact");
-    }
     echo.setContent(message, "text/plain");
 
     echo.setRequestURI(uri);
@@ -712,12 +623,5 @@ public class PrismServlet extends SipServlet {
     return java.net.URI.create("data:"
         + URLEncoder.encode("application/ssml+xml," + "<?xml version=\"1.0\"?>" + "<speak>" + "<voice>" + text
             + "</voice>" + "</speak>", "UTF-8"));
-  }
-
-  private java.net.URI creatASRGrammar() throws UnsupportedEncodingException {
-    return java.net.URI.create("data:"
-        + URLEncoder.encode("application/srgs+xml," + "<?xml version=\"1.0\"?>" + "<grammar mode=\"voice\">"
-            + "<rule scope=\"public\">" + "<one-of>" + "<item> one </item>" + "<item> two </item>" + "</one-of>"
-            + "</rule>" + "</grammar>", "UTF-8"));
   }
 }

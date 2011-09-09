@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sip-app>
 
-  <app-name>com.voxeo.prism.sample.PrismSample</app-name>
-  <display-name>Prism Sample</display-name>
+  <app-name>PrismDemoApp</app-name>
+  <display-name>Prism Demo Application</display-name>
   <servlet>
     <servlet-name>PrismSample</servlet-name>
     <servlet-class>com.voxeo.prism.sample.PrismServlet
@@ -14,17 +14,7 @@
     <servlet-mapping>
       <servlet-name>PrismSample</servlet-name>
       <pattern>
-        <or>
-          <and>
-            <equal ignore-case="false">
-              <var>request.method</var>
-              <value>REGISTER</value>
-            </equal>
-            <equal ignore-case="false">
-              <var>request.from.uri.host</var>
-              <value>prism.sample.prism.voxeo.com</value>
-            </equal>
-          </and>
+
           <and>
             <or>
               <equal ignore-case="false">
@@ -45,7 +35,7 @@
               <value>prism</value>
             </equal>
           </and>
-        </or>
+
       </pattern>
     </servlet-mapping>
   </servlet-selection>
