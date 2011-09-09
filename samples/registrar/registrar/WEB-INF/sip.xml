@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sip-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.jcp.org/xml/ns/sipservlet sip-app_1_1.xsd">
+  <app-name>Registrar</app-name>
+  <display-name>Registrar</display-name>
+  <description>A simple Registrar</description>
+
+  <servlet>
+    <servlet-name>Registrar</servlet-name>
+    <display-name>Registrar</display-name>
+    <description>Registrar</description>
+    <servlet-class>com.voxeo.sipmethod.sample.registrar.Registrar</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-selection>
+    <servlet-mapping>
+      <servlet-name>Registrar</servlet-name>
+      <pattern>
+        <equal ignore-case="false">
+          <var>request.method</var>
+          <value>REGISTER</value>
+        </equal>
+      </pattern>
+    </servlet-mapping>
+  </servlet-selection>
+  <session-config>
+    <session-timeout>10</session-timeout>
+  </session-config>
+</sip-app>

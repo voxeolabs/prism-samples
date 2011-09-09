@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.8.1
+Created-By: 1.6.0_16-b01 (Sun Microsystems Inc.)
+Bundle-Vendor: Voxeo Corp.
+Bundle-Version: 1.0.0.RELEASE
+Bundle-Name: OSGi Sample Application
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: com.voxeo.sipmethod.sample.osgi
+Import-Package: org.osgi.framework;version="0",org.osgi.service.packag
+ eadmin;version="0",org.osgi.service.cm;version="0",  org.osgi.service
+ .url;version="0",org.osgi.util.tracker;version="0"
+

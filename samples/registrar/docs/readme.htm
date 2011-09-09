@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Registrar Sample</title>
+</head>
+<body style="font-family: Tahoma; font-size: 10pt">
+<table width="100%" border="0" cellspacing="10">
+	<tr>
+		<td colspan="3" align="center">
+		<H2>Registrar Sample</H2>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="3">
+		<hr>
+		</td>
+	</tr>
+</table>
+<!----------------- Beginning of the Content ---------------------->
+<h2>Overview</h2>
+<blockquote>
+<p>This sample demonstrates a simple registrar. SIP client can
+register to this sample, then other sample can query register
+information from this sample.</p>
+
+
+
+</blockquote>
+<br>
+<h2>Understanding the Sample</h2>
+<blockquote>
+<p>The SIP servlet - Registrar - demonstrates how a simple register
+server handles SIP REGISTER. It maintains a list of registered user
+agent clients (e.g. X-Lite) and save it to the ServletContext.
+<p>The HTTP part - QueryAddressServlet - demonstrates how HTTP
+servlet and SIP servlet can exchange information via ServletContext.
+QueryAddressServlet shares the same servlet contexts as Registrar servlet so
+it can retrieves the address-of-record and contact address mapping
+maintained by EchoServlet. When AddressServlet receives HTTP GET or POST
+request, it builds a HTML page to display the list of the mapping.</p>
+<p>AddressManagerImpl implements AddressManager to invoke SOAP
+message request, it also shares the same servlet contexts as
+Registrar servlet, When web service receives &quot;list&quot; or
+&quot;remove&quot; request, it will display the list of the mapping or
+remove input uri's mapping.</p>
+<p>For more details, please see <a
+	href="../registrar/WEB-INF/classes/com/voxeo/sipmethod/sample/registrar">source
+codes</a>.</p>
+</blockquote>
+<br>
+<h2>Running the Sample</h2>
+<blockquote>
+
+<p>Please follow the steps below to run a X-Lite with this sample:</p>
+
+<ol>
+	<li>
+	<p>Copy <em>registrar</em> directory (or <em>registrar.sar</em>)
+	into <em>$INSTALL_DIR/apps</em> directory. Start Prism Application
+	Server if you haven't.</p>
+	</li>
+	<li>Startup and Configure your X-Lite (or other compatible SIP
+	Clients).
+	<p>
+	<ul>
+		<li>Open X-Lite 3.0 or later.</li>
+		<li>On the display board, write click and select <em> "SIP
+		Acount Settings..."</em>.</li>
+		<p align="left"><img src="images/mainpanel.png" alt="x-lite" /></p>
+		<br>
+		<li>On the <em>SIP Accounts</em> panel, click <em>Add...</em>.</li>
+		<p align="left"><img src="images/addacount.png" /></p>
+		<br>
+		<li>Type the User Details and Domain Proxy as follow. In fact,
+		you can use any account info you like.</li>
+		<li>Then click <em>OK</em>.</li>
+		<p align="left"><img src="images/account.png" alt="advanced" /></p>
+		<br>
+	</ul>
+	</p>
+	</li>
+	<li>Register your X-Lite to this application.
+	<p>
+	<ul>
+		<li>Start SIP servlet container (Prism Application Server) as
+		<em>user guide</em>.</li>
+		<li>Start X-Lite,and it will register to the container.</li>
+		<p align="left"><img src="images/ready2.png" alt="messenger" /></p>
+		<br>
+	</ul>
+	</p>
+	</li>
+	<li>By now, Sip client registered to this sample. Then other
+	sample can get this register information by using a HTTP request to
+	this sample.The default query URL is
+	"http://localhost:8080/registrar/query". You can also use browser to
+	access this URL to get register information.</li>
+	<p />
+	<li>Use web browser to view the Registered Addresses. Start the
+	web browser and visit <a href="http://localhost:8080/registrar/query">http://localhost:8080/registrar/query</a>.
+	</li>
+	<p />
+	<li>Running <a href="../client">testclient</a> script to list or
+	remove registered addresses by web service.
+	<p>For example: <pre>>testclient -lhttp://localhost:8080/registrar/services/manager list
+>testclient remove "sip:test@registrar.sample.prism.voxeo.com"</pre></p>
+	</li>
+</ol>
+</blockquote>
+<br>
+<!--------------End of the Content ----------------------->
+<table width="100%">
+	<tr>
+		<td colspan="3">
+		<hr>
+		</td>
+	</tr>
+</table>
+</body>

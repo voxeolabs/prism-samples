@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Multiparty Conference Sample</title>
+</head>
+<body style="font-family: Tahoma; font-size:10pt">
+<table width="100%" border="0" cellspacing="10">
+  <tr>
+    <td colspan="3" align="center"><H2>A Simple Distributed Conference Sample</H2></td>
+  </tr>
+  <tr>
+    <td colspan="3"><hr>
+    </td>
+  </tr>
+</table>
+<!----------------- Beginning of the Content ---------------------->
+<h2>Overview</h2>
+<blockquote>
+	<p>This sample application demonstrates how to write a SIP servlet using JSR-309 API to work with media server. </p>
+	<p>ConferenceServlet is a multiparty conference service, there are several conferences, each of them has a unique conference id. Callers enter the same conference id are conferenced together. Everybody can talk/listen. And it also works when this application is distributed among different servers. </p>
+	
+	<p align="left"><img src="images/dmultiparty.jpg"></p>
+</blockquote><br>
+<h2><a name="understanding">Understanding the Sample</a></h2>
+<blockquote>
+<p>On receipt of the INVITE, ConferenceServlet will create a <code>Participant</code>, which owns a MediaSession, a MediaGroup , a MixerAdapter, and of course a NetworkConnection. The <code>Participant</code> will create a NetworkConnection and a MediaGroup, join them together in DUPLEX direction. Then request the media server to process the given SDP offer (from the remote User Agent). Once SDP negotiation is complete, <code>Participant</code> will tell ConferenceServlet to send back SIP/200OK to the remote User Agent. </p>
+<p>On receipt of the ACK, <code>Participant</code> begins to play a prompt to tell the caller to input the conference id. Once the conference id is received, <code>Participant</code> will create a MediaMixer with the specified conference id, and join the NetworkConnection to the MediaMixer in DUPLEX direction. As a result, the remote User Agent can talke to/listen from the conference. </p>
+<p>When ConferenceServlet receives BYE message, this remote User Agent will leave the conference, and the MediaSession associated with the <code>Participant</code> will be released.</p>
+<p>For more details, please see <a href="../dmultiparty/WEB-INF/classes/com/voxeo/prism/sample/multiparty">source codes</a>. </p>
+</blockquote>
+<h2><a name="running">Running the Sample</a></h2>
+<blockquote>
+	<p>Please follow the  steps below to run a X-Lite with this sample:</p>  
+  <ol>
+    <li> 
+      <p>Copy <em>dmultiparty</em> directory (or <em>dmultiparty.sar</em>) into <em>$INSTALL_DIR/apps</em> directory. And start Prism Server if you haven't. </p>
+    </li>
+    <li>Startup and Configure your X-Lite (or other compatible SIP Clients). 
+      <p> 
+      <ul>
+        <li>Open X-Lite 3.0 or later. For Mac Snow Leopard user, X-Lite 4.0 (beta and above) must be used.</li>
+        <li>On the display board, write click and select <em> "SIP Account Settings..."</em>.</li>
+        <p align="left"><img src="images/mainpanel.png" alt="x-lite"/></p>
+        <br>
+        <li>On the <em>SIP Accounts</em> panel, click <em>Add...</em>. </li>
+	      <p align="left"><img src="images/addaccount.png" /></p>
+	      <br>
+        <li>Type the User Details and Domain Proxy as follow.</li>
+        <li> Then click <em>OK</em>.</li>
+	      <p align="left"><img src="images/account.png" alt="advanced"/></p>
+	      <br>
+      </ul>
+      </p>
+    </li>
+    <li>Use your X-Lite to interact with "DistributedMultiparty" application. 
+      <p> 
+      <ul>
+        <li>Click the right arrow and right click on the Group List,select &quot;Add Contact...&quot;.</li>
+        <p align="left"><img src="images/addcontact.png" alt="sign-in"/></p>
+        <br>
+        <li>On the &quot;Add Contact&quot; tab, select &quot;Softphone&quot; and fill in &quot;Phone/Address&quot; with <strong>dmultiparty@dmultiparty.sample.prism.voxeo.com</strong>, then click <em>OK</em>.</li>
+        <p align="left"><img src="images/contact.png" alt="other"/></p>
+        <br>
+        <li>Right click on &quot;dmultiparty@dmultiparty.sample.prism.voxeo.com&quot; ,and select &quot;Call&quot;. 
+        </li>
+        <p align="left"><img src="images/call.png" alt="dialog"/></p>
+        <br>
+        <br>
+        <li>you will see the call is established successfully. You will hear some instructions, follow the instructions to interact with "DistributedMultiparty" application. For more information, see <a href="#understanding">Understanding the Sample</a></li>
+        <p align="left"><img src="images/callEstablished.png" alt="dialog"/></p>
+        <br>
+      </ul></p>
+      </li>
+  </ol>
+</blockquote>
+<br>
+<!--------------End of the Content ----------------------->
+<table width="100%">
+  <tr>
+    <td colspan="3"><hr>
+    </td>
+  </tr>
+</table>
+</body>

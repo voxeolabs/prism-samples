@@ -20,8 +20,8 @@ A free trial version is available for Microsoft Windows, Linux and Mac OS X.
 The followings are sample applications that demonstrate how to use SIP servlet technology to build 
 converged SIP/HTTP/JSR-309/XMPP applications based on Voxeo PRISM Application Server.
 
---  Converged PRISM Application <PrismDemoApp/docs/readme.htm> 	
-    This sample demonstrates how to write a simple application with SIP Servlet API and JSR-309 API
+-- Converged PRISM Application <PrismDemoApp/docs/readme.htm> 	
+   This sample demonstrates how to write a simple application with SIP Servlet API and JSR-309 API
 
 -- Converged User Agent Server <echo/docs/readme.htm> 	
    This sample demonstrates how to write a UAS SIP servlet with a Web interface and a Web Service.
@@ -59,6 +59,16 @@ converged SIP/HTTP/JSR-309/XMPP applications based on Voxeo PRISM Application Se
 
 -- Simple XMPP Client Application <xmppclient/docs/readme.htm>   
    This sample application demonstrates how to implement a XMPP client using XMPP servlet technology.
+
+-- Registrar Application <registrar/docs/readme.htm>
+   This sample demonstrates a simple registrar.
+
+-- OSGi Sample <osgi/docs/readme.htm>
+   This sample application demonstrates how to write a application as a OSGi bundle. 
+   It also demonstrates how to easily using the OSGi service.
+
+-- Distributed Multiparty Application <dmultiparty/docs/readme.htm>
+   This sample demonstrates how to write a simple distributed multiparty application with JSR-309 API and Prism API.
 
 -- Moho Samples <moho>
    Sample applications demonstrating the use of Moho - http://labs.voxeo.com/moho

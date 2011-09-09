@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>OSGi Sample</title>
+</head>
+<body style="font-family: Tahoma; font-size:10pt">
+<table width="100%" border="0" cellspacing="10">
+  <tr>
+    <td colspan="3" align="center"><H2> OSGi Sample </H2></td>
+  </tr>
+  <tr>
+    <td colspan="3"><hr>
+    </td>
+  </tr>
+</table>
+<!----------------- Beginning of the Content ---------------------->
+<h2>Overview</h2>
+<blockquote>
+  <p>This sample application demonstrates how to write a application act as a OSGi bundle. It also demonstrates how to easily using the OSGi service. </p>
+  <p>The <a href="http://www.osgi.org/Specifications/HomePage">OSGi Specifications</a> provide more details the OSGi technology.</p>
+</blockquote>  
+<br>
+<h2>Understanding the Sample </h2>
+<blockquote>
+    <p>OSGiServlet is a simple HTTP servlet. It demonstrates how servlet and OSGi container can exchange information via ServletContext and BundleServlet. 
+    OSGiServlet invokes the ConfigurationAdmin service to get all configurations of OSGi Container by OSGi service management mechanism. 
+    When OSGiServlet receives HTTP GET or POST request, it builds a HTML page to display the list of the configurations.</p>
+	<p>For more details, please see <a href="../osgi/WEB-INF/classes/com/voxeo/sipmethod/sample/osgi">source codes</a>. </p> 
+</blockquote>
+<br>
+<h2>Running the Sample </h2>
+<blockquote>
+  <p>The top level directories and files in this sample are:</p>
+  <table width="100%" border="0" align="center">
+    <tr> 
+    	<td width="10%"></td>
+      <td><font size="2">docs/</font></td>
+      <td><font size="2">the documentation about this sample </font></td>
+    </tr>
+    <tr> 
+	    <td></td>
+      <td><font size="2">osgi.war</font></td>
+      <td align="left"><font size="2">the application archive file (WAR) </font></td>
+    </tr>
+    <tr> 
+	  <td></td>
+      <td><font size="2">osgi/</font></td>
+      <td><font size="2">the exploded application directory </font></td>
+    </tr>
+  </table>
+	<p>Please follow the following steps to deploy, configure and run this sample:</p>
+	<ol>
+	<li>Copy <em>osgi.war</em> into <em>$INSTALL_DIR/modules</em> directory.</li>
+	<br>
+	<li>Access the URL <a href="http://127.0.0.1:8080/osgi">http://127.0.0.1:8080/osgi</a></li>
+	<br>
+	</ol>
+</blockquote><br>
+<!--------------End of the Content ----------------------->
+<table width="100%">
+  <tr>
+    <td colspan="3"><hr>
+    </td>
+  </tr>
+</table>
+</body>
